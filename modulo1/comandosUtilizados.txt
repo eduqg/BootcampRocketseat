@@ -1,0 +1,12 @@
+-> yarn init -y
+
+-> yarn add express
+
+-> yarn add nodemon -D
+Adicionar 
+"scripts": {
+    "dev": "nodemon index.js"
+  },
+No package.json
+
+-> 
