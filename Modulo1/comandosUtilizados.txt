@@ -1,0 +1,18 @@
+-> yarn init -y
+
+-> yarn add express
+
+-> yarn add nodemon -D
+Adicionar 
+"scripts": {
+    "dev": "nodemon index.js"
+  },
+No package.json
+
+-> Configurando debug
+
+Clicar em inseto
+Clicar em engrenagem para gerar arquivo de configurações
+Selecionar linha para debug, clicando ao lado do número da linha
+Clicar em play.
+Posso observar variáveis inserindo-a em watch.
