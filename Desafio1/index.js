@@ -24,4 +24,39 @@ server.post('/projects', (req, res) => {
   return res.json(projects);
 });
 
+server.put('/projects/:id', (req, res) => {
+  const { id } = req.params;
+  const { title } = req.body;
+
+  projects.map((project) => {
+    if (project.id == id) {
+      project.title = title;
+    }
+  });
+
+  return res.json(projects);
+});
+
+server.delete('/projects/:id', (req, res) => {
+  const { id } = req.params;
+
+  projects.splice(projects.findIndex(item => item.id === id), 1);
+
+  return res.json(projects);
+});
+
+server.post('/projects/:id/tasks', (req, res) => {
+  const { title } = req.body;
+  const { id } = req.params;
+
+  projects.map((project) => {
+    if (project.id == id) {
+      project.tasks.push(title);
+    }
+  });
+
+  return res.json(projects);
+
+});
+
 server.listen(3333);
