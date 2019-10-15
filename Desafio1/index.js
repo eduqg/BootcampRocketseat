@@ -11,6 +11,26 @@ const projects = [
   { id: "4", title: 'GoStack', tasks: [] }
 ]
 
+let number_requisitions = 0;
+
+server.use((req, res, next) => {
+  number_requisitions++;
+  console.log(number_requisitions);
+  next();
+});
+
+function checkIfProjectExists(req, res, next) {
+  const project_found_id = projects.findIndex(item => item.id === req.params.id);
+
+  if (project_found_id < 0) {
+    return res.json("Esse projeto não existe");
+  }
+
+  req.project_found_id = project_found_id;
+
+  return next();
+}
+
 server.get('/projects', (req, res) => {
   return res.json(projects);
 });
@@ -24,36 +44,24 @@ server.post('/projects', (req, res) => {
   return res.json(projects);
 });
 
-server.put('/projects/:id', (req, res) => {
-  const { id } = req.params;
+server.put('/projects/:id', checkIfProjectExists, (req, res) => {
   const { title } = req.body;
 
-  projects.map((project) => {
-    if (project.id == id) {
-      project.title = title;
-    }
-  });
+  projects[req.project_found_id].title = title;
 
   return res.json(projects);
 });
 
-server.delete('/projects/:id', (req, res) => {
-  const { id } = req.params;
-
-  projects.splice(projects.findIndex(item => item.id === id), 1);
+server.delete('/projects/:id', checkIfProjectExists, (req, res) => {
+  projects.splice(req.project_found_id, 1);
 
   return res.json(projects);
 });
 
-server.post('/projects/:id/tasks', (req, res) => {
+server.post('/projects/:id/tasks', checkIfProjectExists, (req, res) => {
   const { title } = req.body;
-  const { id } = req.params;
 
-  projects.map((project) => {
-    if (project.id == id) {
-      project.tasks.push(title);
-    }
-  });
+  projects[req.project_found_id].tasks.push(title);
 
   return res.json(projects);
 
