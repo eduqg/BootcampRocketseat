@@ -23,7 +23,7 @@ function checkIfProjectExists(req, res, next) {
   const project_found_id = projects.findIndex(item => item.id === req.params.id);
 
   if (project_found_id < 0) {
-    return res.json("Esse projeto não existe");
+    return res.status(400).json({ err: 'Projeto não existe' });
   }
 
   req.project_found_id = project_found_id;
