@@ -1,0 +1,14 @@
+-> yarn add @babel/core @babel/preset-env @babel/preset-react webpack webpack-cli -D
+
+preset-env = responsável por alterar funcionalidades dp javascript que o navegador não entende.
+Import/export, arrow-functions
+
+preset-react= traduz funcionalidades do react que on navegador não entende. JSX.
+
+-> yarn add react-dom react
+
+-> yarn add babel-loader -D
+
+-> yarn add webpack-dev-server -D
+
+-> 
