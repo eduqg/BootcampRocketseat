@@ -3,6 +3,12 @@ import React, { Component } from 'react';
 import TechItem from './TechItem';
 
 export default class TechList extends Component {
+  // Caso houvesse propriedade tech, valor default pode ser atribuido dessa forma em classes
+  // static defaultProps = {
+  //   tech: 'Oculto'
+  // };
+  // static propTypes = {
+
   state = {
     newTech: '',
     techs: [
