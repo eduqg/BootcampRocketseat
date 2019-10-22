@@ -1,11 +1,13 @@
 import React from 'react';
-import './App.css';
 
+import TechList from './components/TechList';
+
+import './App.css';
 import green from './assets/green.png';
 
 function App() {
   return (
-    <img width="200" src={green} />
+    <TechList />
   );
 }
 

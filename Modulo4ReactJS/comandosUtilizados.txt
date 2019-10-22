@@ -15,3 +15,5 @@ preset-react= traduz funcionalidades do react que on navegador não entende. JSX
 
 -> yarn add file-loader -D
 
+-> yarn add @babel/plugin-proposal-class-properties -D
+Para declaração de estado sem construtor
