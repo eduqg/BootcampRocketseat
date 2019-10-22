@@ -1,10 +1,11 @@
 import React from 'react';
-
 import './App.css';
+
+import green from './assets/green.png';
 
 function App() {
   return (
-    <h1>Hello World</h1>
+    <img width="200" src={green} />
   );
 }
 
