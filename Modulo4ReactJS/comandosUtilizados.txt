@@ -11,4 +11,4 @@ preset-react= traduz funcionalidades do react que on navegador não entende. JSX
 
 -> yarn add webpack-dev-server -D
 
--> 
+-> yarn add style-loader css-loader -D
