@@ -2,4 +2,8 @@
 
 -> yarn add prettier eslint-config-prettier eslint-plugin-prettier babel-eslint -D
 
-->
+-> yarn add styled-components
+Para estilos com variáveis
+
+-> yarn add react-icons
+Com pacotes de icones mais famosos, font awesome, material icons, ionicons
