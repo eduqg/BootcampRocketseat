@@ -1,15 +1,28 @@
 import React from 'react';
 
+import Comment from '../Comment';
+
 import './index.css';
 
-export default function PostItem({data}) {
+export default function PostItem({ data }) {
   console.log(data)
   return (
-    <div className="greatwhitecontainer">
-        <h1>Hello</h1>
-        <h3>{data.id}</h3>
-        <h3>{data.date}</h3>
+    <div className="postitem">
+      <div className="author">
+        <img src={data.author.avatar} alt="imgauthor" />
+        <div>
+          <p className="authorname">{data.author.name}</p>
+          <p className="authordate">{data.date}</p>
+        </div>
+      </div>
+      <div className="question">
         <h3>{data.content}</h3>
+      </div>
+      <hr/>
+      {
+        data.comments.map(comment => <Comment key={comment.id} data={comment} />)
+      }
+
     </div>
   );
 }

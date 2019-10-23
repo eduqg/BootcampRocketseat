@@ -1,4 +1,4 @@
-.greatwhitecontainer {
+.postitem {
   flex: 1;
   min-height: 200px;
   max-width: 980px;
@@ -10,4 +10,46 @@
   margin-bottom: 20px;
   box-shadow: 0 8px 6px -6px black;
   padding: 16px;
+  color: #424242;
+}
+
+.postitem .author {
+  display: flex;
+}
+
+.postitem .author img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-position: center;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  float: right;
+  clear: both;
+}
+
+.postitem .author div p.authorname {
+  margin-top: 8px;
+  margin-left: 8px;
+  font-weight: bold;
+}
+
+.postitem .author div p.authordate {
+  margin-top: 2px;
+  margin-left: 8px;
+  color: #d3d3d3;
+}
+
+.postitem .question h3 {
+  margin-top: 16px;
+  font-weight: normal;
+  text-align: justify;
+}
+
+
+.postitem hr {
+  margin-top: 16px;
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(47, 47, 47, 0.27), rgba(0, 0, 0, 0));
 }
