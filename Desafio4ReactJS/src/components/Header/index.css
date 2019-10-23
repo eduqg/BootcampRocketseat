@@ -1,0 +1,34 @@
+/* # -> pego pelo id */
+header#main-header {
+  background: #3B5997;
+  height: 72px;
+  border-bottom: 1px solid #ddd;
+}
+/* . -> pego pelo className */
+/* margin: 0 auto centraliza de forma responsiva */
+header#main-header .header-content {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header#main-header .header-content img#facebug {
+ height: 70px;
+}
+
+header#main-header .header-content img#person {
+  height: 50px;
+ }
+
+header#main-header .header-content .myprofiletext {
+  float:left;
+  clear: both;
+  margin-top: 18px;
+  margin-right: 7px;
+  color: #fff;
+  font-weight: 600;
+ }

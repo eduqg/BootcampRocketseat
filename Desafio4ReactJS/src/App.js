@@ -1,10 +1,16 @@
 import React from 'react';
 
-import './App.css';
+import Header from './components/Header';
+import PostList from './components/PostList';
+
+import './global.css';
 
 function App() {
   return (
-    <h1>Hello World!</h1>
+    <>
+      <Header />
+      <PostList />
+    </>
   );
 }
 

@@ -1,0 +1,13 @@
+.greatwhitecontainer {
+  flex: 1;
+  min-height: 200px;
+  max-width: 980px;
+  min-width: 600px;
+  background-color: #fff;
+  margin-left: 176px;
+  margin-right: 176px;
+  margin-top: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 6px -6px black;
+  padding: 16px;
+}

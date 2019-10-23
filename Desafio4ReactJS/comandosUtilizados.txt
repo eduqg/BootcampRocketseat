@@ -1,0 +1,3 @@
+-> yarn add @babel/core @babel/preset-env @babel/preset-react webpack webpack-cli babel-loader webpack-dev-server webpack-dev-server file-loader @babel/plugin-proposal-class-properties style-loader css-loader -D
+
+-> yarn add react react-dom prop-types
