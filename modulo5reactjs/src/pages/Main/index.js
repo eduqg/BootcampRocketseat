@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
 import Container from '../../components/Container';
-import { Form, SubmitButton, List } from './styles';
+import { Form, SubmitButton, List, ErrorBox } from './styles';
 
 export default class Main extends Component {
   state = {
@@ -12,6 +12,7 @@ export default class Main extends Component {
     repositories: [],
     loading: false,
     redBox: false,
+    errorAdvice: '',
   };
 
   // Carregar os dados do localstorage
@@ -49,19 +50,38 @@ export default class Main extends Component {
         name: response.data.full_name,
       };
 
+      const foundDuplicate = repositories.find(item => {
+        return item.name === response.data.full_name;
+      });
+
+      if (foundDuplicate) {
+        throw new Error('Repositório duplicado');
+      }
+
+      if (data.name === '') {
+        throw new Error('Insira o nome do repositório');
+      }
+
       this.setState({
         repositories: [...repositories, data],
         newRepo: '',
         loading: false,
       });
-      this.setState({ redBox: false });
+      this.setState({ redBox: false, errorAdvice: '' });
     } catch (error) {
-      this.setState({ redBox: true, loading: false });
+      if (error.message === 'Request failed with status code 404') {
+        error.message = 'Repositório não encontrado.';
+      }
+      this.setState({
+        redBox: true,
+        loading: false,
+        errorAdvice: error.message,
+      });
     }
   };
 
   render() {
-    const { newRepo, loading, repositories, redBox } = this.state;
+    const { newRepo, loading, repositories, redBox, errorAdvice } = this.state;
 
     return (
       <Container>
@@ -69,6 +89,7 @@ export default class Main extends Component {
           <FaGithubAlt />
           Repositórios
         </h1>
+        {errorAdvice !== '' && <ErrorBox>{errorAdvice}</ErrorBox>}
         <Form onSubmit={this.handleSubmit} redBox={redBox}>
           <input
             type="text"
@@ -80,8 +101,8 @@ export default class Main extends Component {
             {loading ? (
               <FaSpinner color="#fff" size={14} />
             ) : (
-              <FaPlus color="#fff" size={14} />
-            )}
+                <FaPlus color="#fff" size={14} />
+              )}
           </SubmitButton>
         </Form>
 

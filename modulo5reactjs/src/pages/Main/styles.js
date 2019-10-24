@@ -8,7 +8,7 @@ export const Form = styled.form`
   input {
     flex: 1;
     ${props =>
-      props.redBox ? 'border: 1px solid red;' : 'border: 1px solid #eee;'}
+    props.redBox ? 'border: 1px solid red;' : 'border: 1px solid #eee;'}
     padding: 10px 15px;
     border-radius: 4px;
     font-size: 16px;
@@ -79,4 +79,16 @@ export const List = styled.ul`
       text-decoration: none;
     }
   }
+`;
+
+export const ErrorBox = styled.div`
+  flex: 1;
+  background-color: #ff6666;
+  border: 1px solid #ff0000;
+  color: white;
+  width: 100%;
+  border-radius: 4px;
+  padding: 4px 4px 4px 16px;
+  font-weight: bold;
+  margin-top: 16px;
 `;
