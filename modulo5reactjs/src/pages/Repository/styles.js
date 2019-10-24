@@ -103,3 +103,23 @@ export const IssueList = styled.div`
     }
   }
 `;
+
+export const FilterIssue = styled.div`
+  background: #7159c1;
+  border: 0;
+  padding: 4px 20px 4px 20px;
+  margin-left: 10px;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 8px;
+
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+`;

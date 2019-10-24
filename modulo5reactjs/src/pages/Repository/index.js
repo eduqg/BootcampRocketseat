@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import queryString from 'query-string';
 
 import PropTypes from 'prop-types';
 import api from '../../services/api';
@@ -21,19 +22,24 @@ export default class Repository extends Component {
     repository: {},
     issues: [],
     loading: true,
-  }
+    status: 'open',
+  };
 
   async componentDidMount() {
     const { match } = this.props;
 
-    const repoName = decodeURIComponent(match.params.repository);
+    const status = queryString.parse(this.props.location.search).state;
+    if (status !== undefined) {
+      await this.setState({ status });
+    }
 
+    const repoName = decodeURIComponent(match.params.repository);
     // api.github.com/repos/rocketseat/unform
     const [repository, issues] = await Promise.all([
       api.get(`/repos/${repoName}`),
       api.get(`/repos/${repoName}/issues`, {
         params: {
-          state: 'open',
+          state: this.state.status,
           per_page: 5,
         },
       }),
@@ -46,11 +52,17 @@ export default class Repository extends Component {
     });
   }
 
+  handleFilterIssue = async (status) => {
+    await this.setState({ status });
+
+    console.log('status no filter issue: ', this.state.status);
+  };
+
   render() {
     const { repository, issues, loading } = this.state;
 
     if (loading) {
-      return <Loading>Carregando...</Loading>
+      return <Loading>Carregando...</Loading>;
     }
 
     return (
@@ -69,6 +81,8 @@ export default class Repository extends Component {
               <div>
                 <strong>
                   <a href={issue.html_url}>{issue.title}</a>
+                  <span>{issue.state}</span>
+
                   {issue.labels.map(label => (
                     <span key={String(label.id)}>{label.name}</span>
                   ))}
