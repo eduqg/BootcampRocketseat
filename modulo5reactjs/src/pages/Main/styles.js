@@ -68,10 +68,10 @@ export const SubmitButton = styled.button.attrs(props => ({
   ${props =>
     props.loading &&
     css`
-    svg {
-      animation: ${rotate} 2s linear infinite;
-    }}
-  `};
+      svg {
+        animation: ${rotate} 2s linear infinite;
+      }
+    `}
 `;
 
 // display: flex;
@@ -86,7 +86,8 @@ export const List = styled.ul`
   li {
     padding: 15px 0;
     display: flex;
-    flex-direction: space-between;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
 
     & + li {
