@@ -30,7 +30,6 @@ export default class Repository extends Component {
     const { match } = this.props;
 
     const { state, page } = queryString.parse(this.props.location.search);
-    console.log('Pagina', page);
     if (state !== undefined) {
       await this.setState({ status: state });
     }
@@ -59,20 +58,32 @@ export default class Repository extends Component {
     });
   }
 
-  handleFilterIssue = async (status) => {
+  handleFilterIssue = async status => {
+    const { match } = this.props;
     await this.setState({ status });
 
-    console.log('status no filter issue: ', this.state.status);
+    const repoName = decodeURIComponent(match.params.repository);
+    // api.github.com/repos/rocketseat/unform
+    const issues = await api.get(`/repos/${repoName}/issues`, {
+      params: {
+        state: status,
+        per_page: 5,
+        page: 1,
+      },
+    });
+
+    this.setState({ issues: issues.data, page: 1 });
   };
 
   handleNextPage = async () => {
-    const { page } = this.state;
+    const { match } = this.props;
+    const { page, status } = this.state;
     const newPageNumber = parseInt(page, 10) + 1;
 
-    const repoName = decodeURIComponent(this.props.match.params.repository);
+    const repoName = decodeURIComponent(match.params.repository);
     const issues = await api.get(`/repos/${repoName}/issues`, {
       params: {
-        state: this.state.status,
+        state: status,
         per_page: 5,
         page: newPageNumber,
       },
@@ -81,13 +92,14 @@ export default class Repository extends Component {
   };
 
   handlePrevPage = async () => {
-    const { page } = this.state;
+    const { match } = this.props;
+    const { page, status } = this.state;
     const newPageNumber = parseInt(page, 10) - 1;
 
-    const repoName = decodeURIComponent(this.props.match.params.repository);
+    const repoName = decodeURIComponent(match.params.repository);
     const issues = await api.get(`/repos/${repoName}/issues`, {
       params: {
-        state: this.state.status,
+        state: status,
         per_page: 5,
         page: newPageNumber,
       },
@@ -110,6 +122,16 @@ export default class Repository extends Component {
           <h1>{repository.name}</h1>
           <p>{repository.description}</p>
         </Owner>
+
+        <FilterIssue onClick={() => this.handleFilterIssue('all')}>
+          All
+        </FilterIssue>
+        <FilterIssue onClick={() => this.handleFilterIssue('open')}>
+          Open
+        </FilterIssue>
+        <FilterIssue onClick={() => this.handleFilterIssue('closed')}>
+          Closed
+        </FilterIssue>
 
         <IssueList>
           {issues.map(issue => (
