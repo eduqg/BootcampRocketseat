@@ -44,10 +44,15 @@ export default class TechList extends Component {
   handleSubmit = e => {
     e.preventDefault();
     // Array deve ser criado novamente, não pode adicionar elementos
-    this.setState({
-      techs: [...this.state.techs, this.state.newTech],
-      newTech: ''
-    });
+    try {
+      this.setState({
+        techs: [...this.state.techs, this.state.newTech],
+        newTech: ''
+      });
+    } catch (error) {
+      
+    }
+    
   };
 
   handleDelete = (tech) => {

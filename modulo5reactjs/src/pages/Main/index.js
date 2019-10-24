@@ -11,6 +11,7 @@ export default class Main extends Component {
     newRepo: '',
     repositories: [],
     loading: false,
+    redBox: false,
   };
 
   // Carregar os dados do localstorage
@@ -37,25 +38,30 @@ export default class Main extends Component {
   handleSubmit = async e => {
     e.preventDefault();
 
-    const { newRepo, repositories } = this.state;
+    try {
+      const { newRepo, repositories } = this.state;
 
-    this.setState({ loading: true });
+      this.setState({ loading: true });
 
-    const response = await api.get(`/repos/${newRepo}`);
+      const response = await api.get(`/repos/${newRepo}`);
 
-    const data = {
-      name: response.data.full_name,
-    };
+      const data = {
+        name: response.data.full_name,
+      };
 
-    this.setState({
-      repositories: [...repositories, data],
-      newRepo: '',
-      loading: false,
-    });
+      this.setState({
+        repositories: [...repositories, data],
+        newRepo: '',
+        loading: false,
+      });
+      this.setState({ redBox: false });
+    } catch (error) {
+      this.setState({ redBox: true, loading: false });
+    }
   };
 
   render() {
-    const { newRepo, loading, repositories } = this.state;
+    const { newRepo, loading, repositories, redBox } = this.state;
 
     return (
       <Container>
@@ -63,7 +69,7 @@ export default class Main extends Component {
           <FaGithubAlt />
           Repositórios
         </h1>
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} redBox={redBox}>
           <input
             type="text"
             placeholder="Adicionar repositório"
