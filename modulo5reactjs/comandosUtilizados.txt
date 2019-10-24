@@ -7,3 +7,8 @@ Para estilos com variáveis
 
 -> yarn add react-icons
 Com pacotes de icones mais famosos, font awesome, material icons, ionicons
+
+-> axios
+https://api.github.com/repos/eduqg/LifeToRemind
+
+->
