@@ -104,7 +104,9 @@ export const IssueList = styled.div`
   }
 `;
 
-export const FilterIssue = styled.div`
+export const FilterIssue = styled.button.attrs(props => ({
+  type: 'button',
+}))`
   background: #7159c1;
   border: 0;
   padding: 4px 20px 4px 20px;

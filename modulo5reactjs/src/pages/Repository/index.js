@@ -7,7 +7,7 @@ import api from '../../services/api';
 
 import Container from '../../components/Container';
 
-import { Loading, Owner, IssueList } from './styles';
+import { Loading, Owner, IssueList, FilterIssue } from './styles';
 
 export default class Repository extends Component {
   static propTypes = {
@@ -22,15 +22,21 @@ export default class Repository extends Component {
     repository: {},
     issues: [],
     loading: true,
-    status: 'open',
+    status: 'all',
+    page: 1,
   };
 
   async componentDidMount() {
     const { match } = this.props;
 
-    const status = queryString.parse(this.props.location.search).state;
-    if (status !== undefined) {
-      await this.setState({ status });
+    const { state, page } = queryString.parse(this.props.location.search);
+    console.log('Pagina', page);
+    if (state !== undefined) {
+      await this.setState({ status: state });
+    }
+
+    if (page !== undefined) {
+      await this.setState({ page });
     }
 
     const repoName = decodeURIComponent(match.params.repository);
@@ -41,6 +47,7 @@ export default class Repository extends Component {
         params: {
           state: this.state.status,
           per_page: 5,
+          page: this.state.page,
         },
       }),
     ]);
@@ -58,8 +65,38 @@ export default class Repository extends Component {
     console.log('status no filter issue: ', this.state.status);
   };
 
+  handleNextPage = async () => {
+    const { page } = this.state;
+    const newPageNumber = parseInt(page, 10) + 1;
+
+    const repoName = decodeURIComponent(this.props.match.params.repository);
+    const issues = await api.get(`/repos/${repoName}/issues`, {
+      params: {
+        state: this.state.status,
+        per_page: 5,
+        page: newPageNumber,
+      },
+    });
+    this.setState({ issues: issues.data, page: newPageNumber });
+  };
+
+  handlePrevPage = async () => {
+    const { page } = this.state;
+    const newPageNumber = parseInt(page, 10) - 1;
+
+    const repoName = decodeURIComponent(this.props.match.params.repository);
+    const issues = await api.get(`/repos/${repoName}/issues`, {
+      params: {
+        state: this.state.status,
+        per_page: 5,
+        page: newPageNumber,
+      },
+    });
+    this.setState({ issues: issues.data, page: newPageNumber });
+  };
+
   render() {
-    const { repository, issues, loading } = this.state;
+    const { repository, issues, loading, page } = this.state;
 
     if (loading) {
       return <Loading>Carregando...</Loading>;
@@ -92,6 +129,11 @@ export default class Repository extends Component {
             </li>
           ))}
         </IssueList>
+        <span>Page: {page}</span>
+        <FilterIssue onClick={this.handlePrevPage} disabled={page <= 1}>
+          Página Anterior
+        </FilterIssue>
+        <FilterIssue onClick={this.handleNextPage} disabled={issues.length < 1}>Próxima página</FilterIssue>
       </Container>
     );
   }
