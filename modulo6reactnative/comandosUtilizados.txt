@@ -71,4 +71,5 @@ apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 and then execute
 react-native run-android
 
-->
+-> yarn add @react-native-community/async-storage
+Para substituir local storage
