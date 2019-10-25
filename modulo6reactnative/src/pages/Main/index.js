@@ -1,12 +1,58 @@
-import React from 'react';
-import { Container } from './styles';
+import React, { Component } from 'react';
+import {Keyboard} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import api from '../../services/api';
 
-export default function Main() {
-  return (
-    <Container />
-  );
+import { Container, Form, SubmitButton, Input } from './styles';
+
+export default class Main extends Component {
+  state = {
+    newUser: '',
+    users: [],
+  };
+
+  handleAddUser = async () => {
+    const { newUser, users } = this.state;
+    const response = await api.get(`/users/${newUser}`);
+
+    const data = {
+      name: response.data.name,
+      login: response.data.login,
+      bio: response.data.bio,
+      avatar: response.data.avatar_url,
+    };
+
+    this.setState({
+      users: [...users, data],
+      newUser: '',
+    });
+    console.log('data', data)
+
+    Keyboard.dismiss();
+  };
+
+  render() {
+    const { users, newUser } = this.state;
+    return (
+      <Container>
+        <Form>
+          <Input
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Adicionar usuário"
+            value={newUser}
+            onChangeText={text => this.setState({ newUser: text })}
+            returnKeyType="send"
+            onSubmitEditing={this.handleAddUser}
+          />
+          <SubmitButton onPress={this.handleAddUser}>
+            <Icon name="chevron-right" size={20} color="#fff" />
+          </SubmitButton>
+        </Form>
+      </Container>
+    );
+  }
 }
-
 Main.navigationOptions = {
   title: 'Usuários',
 }

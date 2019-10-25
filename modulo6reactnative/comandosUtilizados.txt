@@ -57,3 +57,9 @@ ao final dos passos, react-native run-android
 
 -> yarn add styled-components
 styled-rn = para snippet
+
+-> yarn add react-native-vector-icons
+Icones famosos
+Preciso restartar app
+
+->
