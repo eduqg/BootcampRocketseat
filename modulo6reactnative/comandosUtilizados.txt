@@ -1,0 +1,24 @@
+-> sudo yarn global add react-native-cli
+Para adicionar comando react-native de forma global. Assim,
+posso usar react-native init modulo6reactnative
+
+Adicionar no ~/.zshrc ou ~/.bashrc
+
+export ANDROID_HOME=~/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+-> react-native init modulo6reactnative
+ou
+npx react-native init modulo6reactnative
+
+-> react-native start
+Para rodar metro bundler
+yarn start
+
+!importante solução erro da tela branca = deixar rodando o metro bundler em terminal
+em um temrinal separado executar react-native run-android.
+
+-> Com emulador, chacoalhar celular para ver opções
+
+-> 
