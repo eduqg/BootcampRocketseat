@@ -38,3 +38,16 @@ Na opção de onde seu código roda, não colocar nenhuma opção.
  ◯ Node
 
 -> yarn add prettier eslint-config-prettier eslint-plugin-prettier babel-eslint -D
+
+-> Reactotron para debugar native
+https://github.com/infinitered/reactotron
+Baixar aquivo deb e instalar.
+
+-> yarn add reactotron-react-native
+Nas configurações do reactotron em src/config deve ser colocado ip.
+
+Configurado localhost:8081 em settings no celular. -> Funcionou sem 0.0 tbm
+adb reverse tcp:9090 tcp:9090
+const tron = Reactotron.configure({ host: 'localhost', port: 9090 })
+
+->

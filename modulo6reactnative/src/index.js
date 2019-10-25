@@ -1,6 +1,8 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
+import './config/ReactotronConfig';
+
 const styles = StyleSheet.create({
   body: {
     backgroundColor: '#ff00ff',
@@ -14,6 +16,8 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
 });
+
+console.tron.log('Nois');
 
 export default function App() {
   return (
