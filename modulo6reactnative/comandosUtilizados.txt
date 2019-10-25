@@ -62,4 +62,13 @@ styled-rn = para snippet
 Icones famosos
 Preciso restartar app
 
+Caso letras estiverem em chines
+https://github.com/oblador/react-native-vector-icons/issues/620
+Add the following things in android/app/build.gradle
+
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
+and then execute
+react-native run-android
+
 ->
