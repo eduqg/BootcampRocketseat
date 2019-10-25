@@ -50,4 +50,9 @@ Configurado localhost:8081 em settings no celular. -> Funcionou sem 0.0 tbm
 adb reverse tcp:9090 tcp:9090
 const tron = Reactotron.configure({ host: 'localhost', port: 9090 })
 
+-> yarn add react-navigation
+Ir na documentação e também rodar um comando como esse:
+yarn add react-native-reanimated react-native-gesture-handler react-native-screens@^1.0.0-alpha.23
+ao final dos passos, react-native run-android
+
 ->
