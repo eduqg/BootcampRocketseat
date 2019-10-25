@@ -1,17 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <View style={styles.body}>
-        <Text style={styles.footer}>Engine: Hermes</Text>
-        <Text style={styles.footer}>Engine: Hermes</Text>
-      </View>
-    </>
-  );
-};
-
 const styles = StyleSheet.create({
   body: {
     backgroundColor: '#ff00ff',
@@ -26,4 +15,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default function App() {
+  return (
+    <>
+      <View style={styles.body}>
+        <Text style={styles.footer}>Engine: Hermes</Text>
+        <Text style={styles.footer}>Engine: Hermes</Text>
+      </View>
+    </>
+  );
+}

@@ -15,10 +15,26 @@ npx react-native init modulo6reactnative
 -> react-native start
 Para rodar metro bundler
 yarn start
+react-native start --reset-cache
 
 !importante solução erro da tela branca = deixar rodando o metro bundler em terminal
 em um temrinal separado executar react-native run-android.
 
 -> Com emulador, chacoalhar celular para ver opções
 
--> 
+-> Editor Config
+
+Clicar com botão direito abaixo das pastas.
+Alterar conteúdo.
+
+-> Eslint
+Excluir arquivo .eslintrc caso já exista.
+yarn add eslint -D
+yarn eslint --init
+
+Na opção de onde seu código roda, não colocar nenhuma opção.
+? Where does your code run?
+❯◯ Browser
+ ◯ Node
+
+-> yarn add prettier eslint-config-prettier eslint-plugin-prettier babel-eslint -D
