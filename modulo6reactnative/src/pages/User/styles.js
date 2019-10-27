@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { RectButton } from 'react-native-gesture-handler';
 
 // Não posso fazer estilos encadeados no react-native
 export const Container = styled.View`
@@ -12,6 +11,7 @@ export const Header = styled.View`
   padding-bottom: 20px;
   border-bottom-width: 1px;
   border-color: #eee;
+  margin-bottom: 20px;
 `;
 
 // background na imagem para ter fundo antes de carregar
