@@ -34,26 +34,45 @@ export default class User extends Component {
     stars: [],
     loading: false,
     page: 1,
+    refreshing: false,
   }
 
   async componentDidMount() {
-    this.setState({loading: true}, this.getData);
+    this.setState({ loading: true }, this.getData);
   }
 
-  getData = async () => {
+  getData = async (isFresh) => {
     this.setState({ loading: true });
     const { navigation } = this.props;
-    const {stars} = this.state;
+    const { stars } = this.state;
     const user = navigation.getParam('user');
 
-    const response = await api.get(`/users/${user.login}/starred`, {
-      params: {
-        page: this.state.page,
-        per_page: 7,
-      },
-    });
+    let response = [];
+    let newStars = [];
+    if (isFresh === true) {
+      response = await api.get(`/users/${user.login}/starred`, {
+        params: {
+          page: 1,
+          per_page: 7,
+        },
+      });
+      newStars = [...response.data];
+      this.setState({ page: 1 });
+    } else {
+      response = await api.get(`/users/${user.login}/starred`, {
+        params: {
+          page: this.state.page,
+          per_page: 7,
+        },
+      });
+      newStars = [...stars, ...response.data];
+    }
 
-    this.setState({stars: [...stars, ...response.data], loading: false});
+    this.setState({
+      stars: newStars,
+      loading: false,
+      refreshing: false,
+    });
   }
 
   renderRow = ({ item }) => {
@@ -70,7 +89,7 @@ export default class User extends Component {
 
   handleLoadMore = () => {
     console.log("Esta no load more")
-    this.setState({page: this.state.page + 1, loading: false}, this.getData);
+    this.setState({ page: this.state.page + 1, loading: false }, this.getData);
   };
 
   renderFooter = () => {
@@ -86,9 +105,14 @@ export default class User extends Component {
     }
   };
 
+  refreshList = () => {
+    this.setState({ refreshing: true }, () => this.getData(true));
+    console.log('Tá fresh');
+  };
+
   render() {
     const { navigation } = this.props;
-    const { stars, loading } = this.state;
+    const { stars, loading, refreshing } = this.state;
 
     const user = navigation.getParam('user');
 
@@ -110,6 +134,8 @@ export default class User extends Component {
           onMomentumScrollBegin={() => {
             this.onEndReachedCalledDuringMomentum = false;
           }}
+          onRefresh={() => this.refreshList()} // Função dispara quando o usuário arrasta a lista pra baixo
+          refreshing={refreshing} // Variável que armazena um estado true/false que representa se a lista está atualizando
         />
       </Container>
     );
