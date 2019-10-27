@@ -37,7 +37,7 @@ export default class User extends Component {
   }
 
   async componentDidMount() {
-    this.getData();
+    this.setState({loading: true}, this.getData);
   }
 
   getData = async () => {
@@ -73,6 +73,19 @@ export default class User extends Component {
     this.setState({page: this.state.page + 1, loading: false}, this.getData);
   };
 
+  renderFooter = () => {
+    return this.state.loading ? (
+      <ActivityIndicator size="large" color="#7159c1" />
+    ) : null
+  }
+
+  onEndReached = () => {
+    if (!this.onEndReachedCalledDuringMomentum) {
+      this.handleLoadMore();
+      this.onEndReachedCalledDuringMomentum = true;
+    }
+  };
+
   render() {
     const { navigation } = this.props;
     const { stars, loading } = this.state;
@@ -91,11 +104,13 @@ export default class User extends Component {
           data={stars}
           keyExtractor={star => String(star.id)}
           renderItem={this.renderRow}
-          onEndReachedThreshold={0.2}
-          onEndReached={this.handleLoadMore}
+          onEndReachedThreshold={0.01}
+          onEndReached={this.onEndReached}
+          ListFooterComponent={this.renderFooter}
+          onMomentumScrollBegin={() => {
+            this.onEndReachedCalledDuringMomentum = false;
+          }}
         />
-        {loading && <ActivityIndicator size="large" color="#7159c1" />}
-
       </Container>
     );
   }
