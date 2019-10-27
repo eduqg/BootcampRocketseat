@@ -33,6 +33,7 @@ export default class User extends Component {
   state = {
     stars: [],
     loading: false,
+    page: 1,
   }
 
   async componentDidMount() {
@@ -40,13 +41,19 @@ export default class User extends Component {
   }
 
   getData = async () => {
-    await this.setState({ loading: true });
+    this.setState({ loading: true });
     const { navigation } = this.props;
+    const {stars} = this.state;
     const user = navigation.getParam('user');
 
-    const response = await api.get(`/users/${user.login}/starred`);
+    const response = await api.get(`/users/${user.login}/starred`, {
+      params: {
+        page: this.state.page,
+        per_page: 7,
+      },
+    });
 
-    this.setState({ stars: response.data, loading: false });
+    this.setState({stars: [...stars, ...response.data], loading: false});
   }
 
   renderRow = ({ item }) => {
@@ -58,8 +65,13 @@ export default class User extends Component {
           <Author>{item.owner.name}</Author>
         </Info>
       </Starred>
-    )
-  }
+    );
+  };
+
+  handleLoadMore = () => {
+    console.log("Esta no load more")
+    this.setState({page: this.state.page + 1, loading: false}, this.getData);
+  };
 
   render() {
     const { navigation } = this.props;
@@ -75,11 +87,12 @@ export default class User extends Component {
           <Bio>{user.bio}</Bio>
         </Header>
 
-
         <Stars
           data={stars}
           keyExtractor={star => String(star.id)}
           renderItem={this.renderRow}
+          onEndReachedThreshold={0.2}
+          onEndReached={this.handleLoadMore}
         />
         {loading && <ActivityIndicator size="large" color="#7159c1" />}
 
