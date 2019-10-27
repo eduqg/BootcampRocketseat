@@ -78,7 +78,20 @@ export default class Main extends Component {
     const { navigation } = this.props;
 
     navigation.navigate('User', { user });
-  }
+  };
+
+  handleDelete = async (user) => {
+    // Não precisa do await, animação muito rápida
+    const { users } = this.state;
+
+    const newUsers = users.filter((item) => {
+      return item.name !== user.name;
+    });
+
+    this.setState({
+      users: newUsers,
+    });
+  };
 
   render() {
     const { users, newUser, loading } = this.state;
@@ -114,6 +127,9 @@ export default class Main extends Component {
 
               <ProfileButton onPress={() => this.handleNavigate(item)}>
                 <ProfileButtonText>Ver Perfil</ProfileButtonText>
+              </ProfileButton>
+              <ProfileButton onPress={() => this.handleDelete(item)}>
+                <ProfileButtonText>Remover</ProfileButtonText>
               </ProfileButton>
             </User>
           )}
