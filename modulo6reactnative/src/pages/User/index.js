@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import api from '../../services/api';
 
@@ -73,19 +73,12 @@ export default class User extends Component {
       loading: false,
       refreshing: false,
     });
-  }
-
-  renderRow = ({ item }) => {
-    return (
-      <Starred>
-        <OwnerAvatar source={{ uri: item.owner.avatar_url }} />
-        <Info>
-          <Title>{item.name}</Title>
-          <Author>{item.owner.name}</Author>
-        </Info>
-      </Starred>
-    );
   };
+
+  handleWebView = async (repository) => {
+    const { navigation } = this.props;
+    await navigation.navigate('Repository', { repository });
+  }
 
   handleLoadMore = () => {
     console.log("Esta no load more")
@@ -127,7 +120,17 @@ export default class User extends Component {
         <Stars
           data={stars}
           keyExtractor={star => String(star.id)}
-          renderItem={this.renderRow}
+          renderItem={({ item }) =>
+            (<TouchableOpacity onPress={() => this.handleWebView(item)}>
+              <Starred>
+                <OwnerAvatar source={{ uri: item.owner.avatar_url }} />
+                <Info>
+                  <Title>{item.name}</Title>
+                  <Author>{item.owner.name}</Author>
+                </Info>
+              </Starred>
+            </TouchableOpacity>)
+          }
           onEndReachedThreshold={0.01}
           onEndReached={this.onEndReached}
           ListFooterComponent={this.renderFooter}

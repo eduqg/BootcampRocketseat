@@ -73,3 +73,5 @@ react-native run-android
 
 -> yarn add @react-native-community/async-storage
 Para substituir local storage
+
+-> react-native-webview
