@@ -36,6 +36,10 @@ export default class User extends Component {
   }
 
   async componentDidMount() {
+    this.getData();
+  }
+
+  getData = async () => {
     await this.setState({ loading: true });
     const { navigation } = this.props;
     const user = navigation.getParam('user');
@@ -43,6 +47,18 @@ export default class User extends Component {
     const response = await api.get(`/users/${user.login}/starred`);
 
     this.setState({ stars: response.data, loading: false });
+  }
+
+  renderRow = ({ item }) => {
+    return (
+      <Starred>
+        <OwnerAvatar source={{ uri: item.owner.avatar_url }} />
+        <Info>
+          <Title>{item.name}</Title>
+          <Author>{item.owner.name}</Author>
+        </Info>
+      </Starred>
+    )
   }
 
   render() {
@@ -59,25 +75,14 @@ export default class User extends Component {
           <Bio>{user.bio}</Bio>
         </Header>
 
-        {loading ? (
-          <ActivityIndicator size="large" color="#7159c1" />
-        ) : (
-            <Stars
-              data={stars}
-              keyExtractor={star => String(star.id)}
-              renderItem={({ item }) => {
-                return (
-                  <Starred>
-                    <OwnerAvatar source={{ uri: item.owner.avatar_url }} />
-                    <Info>
-                      <Title>{item.name}</Title>
-                      <Author>{item.owner.name}</Author>
-                    </Info>
-                  </Starred>
-                );
-              }}
-            />
-          )}
+
+        <Stars
+          data={stars}
+          keyExtractor={star => String(star.id)}
+          renderItem={this.renderRow}
+        />
+        {loading && <ActivityIndicator size="large" color="#7159c1" />}
+
       </Container>
     );
   }
