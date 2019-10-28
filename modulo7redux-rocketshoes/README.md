@@ -15,7 +15,6 @@ Para adicionar bibliotecas do Prettier e ESLint
 Para configurar eslint
 > yarn eslint --init
 
-
 Criar arquivo .editorconfig com extensão  Editor config.
 
 Adicionar depoendencias de estilos, rotas e prop-types.
@@ -26,3 +25,23 @@ Para adicionar fonte, ir em google fonts. Selecionar embeded. @import. copiar ur
 
 Biblioteca que lida com cores dentro do javascript.
 > yarn add polished
+
+JSON Server!
+Cria uma API fake para utilizarmos.
+> yarn global add json-server
+Usei sudo yarn global add json-server
+
+json-server server.json -p 3333
+Colocar -w caso formos alterar o json enquanto usamos.
+
+Rotas disponíveis:
+
+localhost:3333/products
+localhost:3333/stock
+localhost:3333/products/4
+
+Ou, adicionando nos script para rodar com yarn json-server.
+> yarn add json-server -D
+
+Para requisições.
+> yarn add axios
