@@ -45,3 +45,6 @@ Ou, adicionando nos script para rodar com yarn json-server.
 
 Para requisições.
 > yarn add axios
+
+Bibliotecas para utilizar redux
+> yarn add redux react-redux
