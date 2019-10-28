@@ -3,6 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 // Provider para que toda a aplicação tenha acesso a store
 import { Provider } from 'react-redux';
 
+import './config/ReactotronConfig';
+
 import GlobalStyles from './styles/global';
 import Routes from './routes';
 import Header from './components/Header';

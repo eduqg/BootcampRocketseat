@@ -48,3 +48,6 @@ Para requisições.
 
 Bibliotecas para utilizar redux
 > yarn add redux react-redux
+
+Reactotron para debugar redux
+> yarn add reactotron-react-js reactotron-redux
