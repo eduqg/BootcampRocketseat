@@ -14,10 +14,12 @@ export default function Cart() {
         {/* Cabeçalho da tabela */}
         <thead>
           <tr>
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
             <th />
             <th>PRODUTO</th>
             <th>QUANTIDADE</th>
             <th>SUBTOTAL</th>
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
             <th />
           </tr>
         </thead>
