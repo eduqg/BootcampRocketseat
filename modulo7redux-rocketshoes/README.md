@@ -51,3 +51,7 @@ Bibliotecas para utilizar redux
 
 Reactotron para debugar redux
 > yarn add reactotron-react-js reactotron-redux
+
+Immer: intermediário que faz rascunho antes de alterar o estado da store
+Não fere a imutabilidade do react
+> yarn add immer
