@@ -1,0 +1,3 @@
+## RocketShoes
+
+### Projeto utilizando redux
