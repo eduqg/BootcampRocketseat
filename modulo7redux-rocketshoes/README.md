@@ -23,3 +23,6 @@ Adicionar depoendencias de estilos, rotas e prop-types.
 > yarn add styled-components react-router-dom prop-types
 
 Para adicionar fonte, ir em google fonts. Selecionar embeded. @import. copiar url e adicionar no global style.
+
+Biblioteca que lida com cores dentro do javascript.
+> yarn add polished
