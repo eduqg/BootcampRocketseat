@@ -4,7 +4,7 @@ import produce from 'immer';
 // Preciso filtrar quais quero fazer algum ação
 export default function cart(state = [], action) {
   switch (action.type) {
-    case 'ADD_TO_CART':
+    case '@cart/ADD':
       return produce(state, draft => {
         // Verifico se o id do produto que recebi já existe no meu array de produtos do state
         const productIndex = draft.findIndex(p => p.id === action.product.id);
@@ -18,7 +18,7 @@ export default function cart(state = [], action) {
           });
         }
       });
-    case 'REMOVE_FROM_CART':
+    case '@cart/REMOVE':
       return produce(state, draft => {
         const productIndex = draft.findIndex(p => p.id === action.id);
         if (productIndex >= 0) {
