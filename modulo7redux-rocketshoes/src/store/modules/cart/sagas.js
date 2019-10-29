@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 import api from '../../../services/api';
 import { formatPrice } from '../../../util/format';
 
-import { addToCartSuccess, updateAmount } from './actions';
+import { addToCartSuccess, updateAmountSuccess } from './actions';
 
 // Função com responsabilidade de acessar a api e buscar informações detalhadas
 // A action ADD_REQUEST é ouvida apenas pelo saga
@@ -41,7 +41,7 @@ function* addToCart({ id }) {
   }
 
   if (productExists) {
-    yield put(updateAmount(id, amount));
+    yield put(updateAmountSuccess(id, amount));
   } else {
     const response = yield call(api.get, `/products/${id}`)
 
@@ -55,8 +55,26 @@ function* addToCart({ id }) {
   }
 }
 
+function* updateAmount({ id, amount }) {
+  if (amount <= 0) return;
+
+  const stock = yield call(api.get, `stock/${id}`);
+
+  const stockAmount = stock.data.amount;
+
+  if (amount > stockAmount) {
+    toast.error('Quantidade solicitada fora de estoque.');
+    return;
+  }
+
+  yield put(updateAmountSuccess(id, amount));
+}
+
 // all = cadastro de listeners, para quando uma ação é disparada
 // take latest = se usuário clicar uma vez, deve esperar adicionar para então adicionar outro
 // cancela anterior
 // takeEvery = pega todas as requisições
-export default all([takeLatest('@cart/ADD_REQUEST', addToCart)]);
+export default all([
+  takeLatest('@cart/ADD_REQUEST', addToCart),
+  takeLatest('@cart/UPDATE_AMOUNT_REQUEST', updateAmount),
+]);
