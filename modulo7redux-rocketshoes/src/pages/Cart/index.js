@@ -7,11 +7,11 @@ import {
   MdDelete,
 } from 'react-icons/md';
 import * as CartActions from '../../store/modules/cart/actions';
-
+import { formatPrice } from '../../util/format';
 
 import { Container, ProductTable, Total } from './styles';
 
-function Cart({ cart, removeFromCart, updateAmount }) {
+function Cart({ cart, removeFromCart, updateAmount, total }) {
   function increment({ id, amount }) {
     updateAmount(id, amount + 1);
   }
@@ -57,7 +57,7 @@ function Cart({ cart, removeFromCart, updateAmount }) {
                 </div>
               </td>
               <td>
-                <strong>R$260,00</strong>
+                <strong>{product.subtotal}</strong>
               </td>
               <td>
                 <button
@@ -75,7 +75,7 @@ function Cart({ cart, removeFromCart, updateAmount }) {
         <button type="button">Finalizar pedido</button>
         <Total>
           <span>TOTAL</span>
-          <strong>R$1920,92</strong>
+          <strong>{total}</strong>
         </Total>
       </footer>
     </Container>
@@ -85,7 +85,20 @@ function Cart({ cart, removeFromCart, updateAmount }) {
 // Para obter um estado em connect() declaro o mapStateToProps
 // Ela pega informações do nosso estado e mapeia para o nosso componente
 const mapStateToProps = state => ({
-  cart: state.cart,
+  cart: state.cart.map(product => ({
+    ...product,
+    // Para não fazer uma operação no reducer ou no render, realizar no próprio mapState
+    // Se colocasse no render, iria refazer a operação a cada vez que o render fosse chamado
+    subtotal: formatPrice(product.price * product.amount),
+  })),
+  // Reduce serve para pegar um array e reduzir a um valor (total como parametro)
+  // Itera como o map os produtos
+  total: formatPrice(
+    state.cart.reduce((total, product) => {
+      return total + product.price * product.amount;
+      // total inicia com valor zero
+    }, 0)
+  ),
 });
 
 const mapDispatchToProps = dispatch =>
