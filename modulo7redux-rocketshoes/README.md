@@ -61,3 +61,6 @@ Redux-saga serve para criar middlewares de ações. Em um cenário: ao adicionar
 
 Para debugar redux-saga
 > yarn add reactotron-redux-saga
+
+Toasts no react
+> yarn add react-toastify
