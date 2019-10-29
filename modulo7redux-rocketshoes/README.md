@@ -64,3 +64,9 @@ Para debugar redux-saga
 
 Toasts no react
 > yarn add react-toastify
+
+Biblioteca de historico de navegação. Necessário pois preciso navegar para outra página mesmo com redux-saga.
+> yarn add history
+
+Para ter delay na chamada a api.
+> json-server server.json -p 3333 -d 2000

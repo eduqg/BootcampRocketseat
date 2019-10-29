@@ -28,6 +28,8 @@ class Home extends Component {
   handleAddProduct = id => {
     // Preciso despachar uma ação para ser executada pelo reducer
     const { addToCartRequest } = this.props;
+    // Não posso navegar para outra página nesse método, nem se colocar await
+    // Navegação terá que ser pode dentro do saga
     addToCartRequest(id);
   };
 
