@@ -58,3 +58,6 @@ Não fere a imutabilidade do react
 
 Redux-saga serve para criar middlewares de ações. Em um cenário: ao adicionar um produto no carrinho preciso fazer requisição de mais dados na api sobre o meu produto.
 > yarn add redux-saga
+
+Para debugar redux-saga
+> yarn add reactotron-redux-saga
