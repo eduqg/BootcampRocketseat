@@ -55,3 +55,6 @@ Reactotron para debugar redux
 Immer: intermediário que faz rascunho antes de alterar o estado da store
 Não fere a imutabilidade do react
 > yarn add immer
+
+Redux-saga serve para criar middlewares de ações. Em um cenário: ao adicionar um produto no carrinho preciso fazer requisição de mais dados na api sobre o meu produto.
+> yarn add redux-saga

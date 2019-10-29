@@ -4,7 +4,7 @@ import produce from 'immer';
 // Preciso filtrar quais quero fazer algum ação
 export default function cart(state = [], action) {
   switch (action.type) {
-    case '@cart/ADD':
+    case '@cart/ADD_SUCCESS':
       return produce(state, draft => {
         // Verifico se o id do produto que recebi já existe no meu array de produtos do state
         const productIndex = draft.findIndex(p => p.id === action.product.id);
