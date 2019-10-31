@@ -21,3 +21,6 @@ Para configurar eslint
 Criar arquivo .editorconfig com extensão  Editor config.
 
 Adicionar depoendencias de estilos, rotas e prop-types.
+
+Plugin para verificar se estou usando react hooks de forma errada.
+> yarn add eslint-plugin-react-hooks -D
