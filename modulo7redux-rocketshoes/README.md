@@ -70,3 +70,5 @@ Biblioteca de historico de navegação. Necessário pois preciso navegar para ou
 
 Para ter delay na chamada a api.
 > json-server server.json -p 3333 -d 2000
+
+> yarn add eslint-plugin-react-hooks -D

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { MdAddShoppingCart } from 'react-icons/md';
@@ -8,56 +8,53 @@ import * as CartActions from '../../store/modules/cart/actions';
 
 import { ProductList } from './styles';
 
-class Home extends Component {
-  state = {
-    products: [],
-  };
+function Home({ amount, addToCartRequest }) {
+  const [products, setProducts] = useState([]);
 
-  async componentDidMount() {
-    const response = await api.get('products');
+  useEffect(() => {
+    async function loadProducts() {
+      const response = await api.get('products');
 
-    // Para cada produto, formatar preço, adicionando novo campo
-    const data = response.data.map(product => ({
-      ...product,
-      priceFormatted: formatPrice(product.price)
-    }));
+      // Para cada produto, formatar preço, adicionando novo campo
+      const data = response.data.map(product => ({
+        ...product,
+        priceFormatted: formatPrice(product.price)
+      }));
 
-    this.setState({ products: data });
-  }
+      setProducts(data);
+    }
 
-  handleAddProduct = id => {
+    loadProducts();
+  }, []);
+
+  // Não é necessário usar useCallback nessa função pois ela não depende de
+  // uma variável do componente (variaveis do estado ou dos argumentos/propriedades)
+  // obs: addToCart é uma função que nunca vai mudar
+  function handleAddProduct(id) {
     // Preciso despachar uma ação para ser executada pelo reducer
-    const { addToCartRequest } = this.props;
     // Não posso navegar para outra página nesse método, nem se colocar await
     // Navegação terá que ser pode dentro do saga
     addToCartRequest(id);
-  };
-
-  render() {
-    const { products } = this.state;
-    const { amount } = this.props;
-    return (
-      <ProductList>
-        {products.map(product => (
-          <li key={product.id}>
-            <img src={product.image} alt={product.title} />
-            <strong>{product.title}</strong>
-            <span>{product.priceFormatted}</span>
-            <button
-              type="button"
-              onClick={() => this.handleAddProduct(product.id)}
-            >
-              <div>
-                <MdAddShoppingCart size={16} color="#fff" />
-                {amount[product.id] || 0}
-              </div>
-              <span>ADICIONAR AO CARRINHO</span>
-            </button>
-          </li>
-        ))}
-      </ProductList>
-    );
   }
+
+  return (
+    <ProductList>
+      {products.map(product => (
+        <li key={product.id}>
+          <img src={product.image} alt={product.title} />
+          <strong>{product.title}</strong>
+          <span>{product.priceFormatted}</span>
+          <button type="button" onClick={() => handleAddProduct(product.id)}>
+            <div>
+              <MdAddShoppingCart size={16} color="#fff" />
+              {amount[product.id] || 0}
+            </div>
+            <span>ADICIONAR AO CARRINHO</span>
+          </button>
+        </li>
+      ))}
+    </ProductList>
+  );
 }
 
 // Na home é necessário um item saber quantos dele já estão dentro do carrinho
