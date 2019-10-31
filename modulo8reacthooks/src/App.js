@@ -1,13 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
 function App() {
   const [tech, setTech] = useState([]);
   const [newTech, setNewTech] = useState('');
 
-  function handleAdd() {
+  // Problema: toda vez que componente é criado, uma função é criada também. Isso gasta processamente.
+  // Exemplo handleAdd
+  // Para isso usar o useCallback. Usar em estados, variáveis do useState.
+  // retorna função
+
+  // function handleAdd() {
+  //   setTech([...tech, newTech]);
+  //   setNewTech('');
+  // }
+
+  const handleAdd = useCallback(() => {
     setTech([...tech, newTech]);
     setNewTech('');
-  }
+  }, [tech, newTech]);
 
   // Para apenas executar na inicialização = componentDidMount
   useEffect(() => {
@@ -28,6 +38,11 @@ function App() {
     localStorage.setItem('tech', JSON.stringify(tech));
   }, [tech]);
 
+  // Chamar tech.length apenas quando tech mudar. Não sempre que componenten renderizar
+  // techSize só ganha novo valor quando tech é alterado
+  // retorna um valor
+  const techSize = useMemo(() => tech.length, [tech]);
+
   return (
     <>
       <ul>
@@ -35,6 +50,9 @@ function App() {
           <li key={t}>{t}</li>
         ))}
       </ul>
+      {/* tech.length é executado toda vez que o componente renderiza */}
+      {/* <strong>Você tem {tech.length} tecnologias</strong> */}
+      <strong>Você tem {techSize} tecnologias</strong>
       <input value={newTech} onChange={e => setNewTech(e.target.value)} />
       <button type="button" onClick={handleAdd}>
         Adicionar
