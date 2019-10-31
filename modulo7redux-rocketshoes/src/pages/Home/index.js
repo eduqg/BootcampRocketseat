@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { formatPrice } from '../../util/format';
 import api from '../../services/api';
@@ -8,8 +7,17 @@ import * as CartActions from '../../store/modules/cart/actions';
 
 import { ProductList } from './styles';
 
-function Home({ amount, addToCartRequest }) {
+export default function Home() {
   const [products, setProducts] = useState([]);
+  // Use selector retorna o estado inteiro, selecionamos um
+  const amount = useSelector(state =>
+    state.cart.reduce((amountState, product) => {
+      amountState[product.id] = product.amount;
+      return amountState;
+    }, {})
+  );
+
+  const dispath = useDispatch();
 
   useEffect(() => {
     async function loadProducts() {
@@ -34,7 +42,7 @@ function Home({ amount, addToCartRequest }) {
     // Preciso despachar uma ação para ser executada pelo reducer
     // Não posso navegar para outra página nesse método, nem se colocar await
     // Navegação terá que ser pode dentro do saga
-    addToCartRequest(id);
+    dispath(CartActions.addToCartRequest(id));
   }
 
   return (
@@ -58,19 +66,16 @@ function Home({ amount, addToCartRequest }) {
 }
 
 // Na home é necessário um item saber quantos dele já estão dentro do carrinho
-const mapStateToProps = state => ({
-  amount: state.cart.reduce((amount, product) => {
-    amount[product.id] = product.amount;
-    return amount;
-  }, {}),
-});
+// const mapStateToProps = state => ({
+//   amount:
+// });
 
 // Converte actions para serem utilizadas no meu componente atual
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(CartActions, dispatch);
+// const mapDispatchToProps = dispatch =>
+//   bindActionCreators(CartActions, dispatch);
 
-// Primeiro mapState depois map Dispatch
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+// // Primeiro mapState depois map Dispatch
+// export default connect(
+//   null,
+//   mapDispatchToProps
+// )(Home);
