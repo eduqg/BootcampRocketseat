@@ -17,6 +17,14 @@ export const ImageBar = styled.Image`
 `;
 
 export const HeaderCart = styled.TouchableHighlight`
+  flex-direction: row;
   margin-top: 10;
   margin-right: 10;
+  margin-right: 5;
+`;
+
+export const NumberCart = styled.Text`
+  margin-top: 5;
+  color: #fff;
+
 `;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Image, TouchableHighlight } from 'react-native';
-import { Container, ImageBar, HeaderCart, HeaderLogo } from './styles';
+import { Container, ImageBar, HeaderCart, HeaderLogo, NumberCart } from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import logo from '../../assets/logo.png';
@@ -23,7 +23,10 @@ export default class Header extends Component {
           <ImageBar source={logo} style={{ resizeMode: 'contain' }} />
         </HeaderLogo>
         <HeaderCart onPress={this.handleNavigateCart}>
-          <Icon name="add-shopping-cart" size={30} color="#fff" />
+          <>
+            <NumberCart>3</NumberCart>
+            <Icon name="add-shopping-cart" size={30} color="#fff" />
+          </>
         </HeaderCart>
       </Container>
     );
