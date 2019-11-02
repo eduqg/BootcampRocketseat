@@ -22,6 +22,7 @@ export default class Main extends Component {
     title: 'Home',
   };
 
+
   render() {
     return (
       <View>
