@@ -9,6 +9,7 @@ import {
   ButtonNumberText,
   ButtonNumberIcon,
   TextAdd,
+  Item,
   ItemImage,
   ItemDescription,
   ItemPrice,
@@ -55,37 +56,39 @@ export default class Main extends Component {
     ];
     return (
       <Container>
-        <List
-          data={items}
-          keyExtractor={item => item.id.toString()}
-          horizontal
-          renderItem={({ item }) => (
-            <Card>
-              <ItemImage
-                source={{
-                  uri:
-                    'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-                }}
-                alt={item.title}
-              />
-              <ItemDescription>{item.title} tenis bonito</ItemDescription>
-              <ItemPrice>{item.price}</ItemPrice>
+        <Card>
+          <List
+            data={items}
+            keyExtractor={item => item.id.toString()}
+            horizontal
+            renderItem={({ item }) => (
+              <Item>
+                <ItemImage
+                  source={{
+                    uri:
+                      'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
+                  }}
+                  alt={item.title}
+                />
+                <ItemDescription>{item.title} tenis bonito</ItemDescription>
+                <ItemPrice>{item.price}</ItemPrice>
 
-              <ProfileButton onPress={this.handleNavigate}>
-                <ButtonNumber>
-                  <ButtonNumberText>3</ButtonNumberText>
-                  <ButtonNumberIcon
-                    name="add-shopping-cart"
-                    size={20}
-                    color="#fff"
-                  />
-                </ButtonNumber>
+                <ProfileButton onPress={this.handleNavigate}>
+                  <ButtonNumber>
+                    <ButtonNumberText>3</ButtonNumberText>
+                    <ButtonNumberIcon
+                      name="add-shopping-cart"
+                      size={20}
+                      color="#fff"
+                    />
+                  </ButtonNumber>
 
-                <TextAdd>Adicionar</TextAdd>
-              </ProfileButton>
-            </Card>
-          )}
-        />
+                  <TextAdd>Adicionar</TextAdd>
+                </ProfileButton>
+              </Item>
+            )}
+          />
+        </Card>
       </Container>
     );
   }
