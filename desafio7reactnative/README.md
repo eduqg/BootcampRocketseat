@@ -71,3 +71,6 @@ module.exports = {
 import { SOME_KEY } from 'react-native-dotenv'
 
 Criar arquivo .env com a chave CURRENT_LOCAL_IP=198.162.xx.xx para funcionar esse projeto.
+
+Redux e redux saga
+> yarn add redux react-redux redux-saga

@@ -27,9 +27,16 @@ export default class Main extends Component {
     }).isRequired,
   };
 
+  state = {
+    products: [],
+  };
+
   async componentDidMount() {
     const products = await api.get('products');
-    console.tron.log(products.data);
+    if (products) {
+      this.setState({ products: products.data });
+    }
+    console.tron.log('Home products', products.data);
   }
 
   handleNavigate = () => {
@@ -39,42 +46,17 @@ export default class Main extends Component {
   };
 
   render() {
-    const items = [
-      {
-        id: 1,
-        title: 'Um tenis bonito',
-        price: 'R$50,00',
-        image: 'url da img',
-      },
-      {
-        id: 2,
-        title: 'Um tenis bonit2',
-        price: 'R$50,00',
-        image: 'url da img',
-      },
-      {
-        id: 3,
-        title: 'Um tenis bonito3',
-        price: 'R$50,00',
-        image: 'url da img',
-      },
-    ];
+    const { products } = this.state;
     return (
       <Container>
         <List
-          data={items}
+          data={products}
           keyExtractor={item => `${item.id}`}
           horizontal
           renderItem={({ item }) => (
             <Card>
               <Item>
-                <ItemImage
-                  source={{
-                    uri:
-                      'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-                  }}
-                  alt={item.title}
-                />
+                <ItemImage source={{ uri: item.image }} alt={item.title} />
                 <ItemDescription>{item.title} tenis bonito</ItemDescription>
                 <ItemPrice>{item.price}</ItemPrice>
 

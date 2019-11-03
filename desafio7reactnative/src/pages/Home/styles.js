@@ -38,7 +38,9 @@ export const ItemImage = styled.Image`
   height: 180;
   width: 180;
 `;
-export const ItemDescription = styled.Text``;
+export const ItemDescription = styled.Text.attrs({
+  numberOfLines: 2,
+})``;
 export const ItemPrice = styled.Text`
   font-size: 16;
   font-weight: bold;
