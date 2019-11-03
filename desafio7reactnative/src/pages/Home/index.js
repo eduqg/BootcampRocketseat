@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import api from '../../services/api';
+import { connect } from 'react-redux';
 // import { View, Text, Image } from 'react-native';
 
 import {
@@ -18,7 +19,7 @@ import {
   List,
 } from './styles';
 
-export default class Main extends Component {
+class Home extends Component {
   // Somente deve ser validado o que for usado dentro desta classe
   // eslint-disable-next-line react/static-property-placement
   static propTypes = {
@@ -36,13 +37,14 @@ export default class Main extends Component {
     if (products) {
       this.setState({ products: products.data });
     }
-    console.tron.log('Home products', products.data);
   }
 
-  handleNavigate = () => {
-    const { navigation } = this.props;
-
-    navigation.navigate('Cart');
+  handleAddProduct = product => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'ADD_TO_CART',
+      product,
+    });
   };
 
   render() {
@@ -60,7 +62,7 @@ export default class Main extends Component {
                 <ItemDescription>{item.title} tenis bonito</ItemDescription>
                 <ItemPrice>{item.price}</ItemPrice>
 
-                <ProfileButton onPress={this.handleNavigate}>
+                <ProfileButton onPress={() => this.handleAddProduct(item)}>
                   <ButtonNumber>
                     <ButtonNumberText>3</ButtonNumberText>
                     <ButtonNumberIcon
@@ -80,3 +82,5 @@ export default class Main extends Component {
     );
   }
 }
+
+export default connect()(Home);
