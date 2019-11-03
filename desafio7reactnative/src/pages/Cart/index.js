@@ -27,20 +27,20 @@ import {
 } from './styles';
 
 // eslint-disable-next-line react/prefer-stateless-function
-function Cart({ cart, removeFromCart }) {
+function Cart({ cart, removeFromCart, updateAmount }) {
   // const [amount, setAmount] = useState(1);
 
   // handleFinish = () => {
   //   console.tron.log('Finalizar Compra');
   // };
 
-  // decrement = () => {
-  //   console.tron.log('-');
-  // };
+  function increment(product) {
+    updateAmount(product.id, product.amount + 1);
+  }
 
-  // increment = () => {
-  //   console.tron.log('+');
-  // };
+  function decrement(product) {
+    updateAmount(product.id, product.amount - 1);
+  }
 
   // remove = () => {
   //   console.tron.log('X');
@@ -66,9 +66,9 @@ function Cart({ cart, removeFromCart }) {
               </ItemHorizontal>
 
               <IncreaseDecrease>
-                <IncreaseDecreaseButton onPress={() => { }}>
+                <IncreaseDecreaseButton onPress={() => decrement(item)}>
                   <IncreaseDecreaseIcon
-                    name="add-circle-outline"
+                    name="remove-circle-outline"
                     size={20}
                     color="#333"
                   />
@@ -78,9 +78,9 @@ function Cart({ cart, removeFromCart }) {
                   selectTextOnFocus={false}
                   value={`${item.amount}`}
                 />
-                <IncreaseDecreaseButton onPress={() => { }}>
+                <IncreaseDecreaseButton onPress={() => increment(item)}>
                   <IncreaseDecreaseIcon
-                    name="remove-circle-outline"
+                    name="add-circle-outline"
                     size={20}
                     color="#333"
                   />
