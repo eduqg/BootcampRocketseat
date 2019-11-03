@@ -28,15 +28,13 @@ export const Card = styled.View`
   padding-top: 10;
 `;
 
-// Image
+// Item Row
 export const Item = styled.View`
   flex-direction: column;
 `;
 export const ItemHorizontal = styled.View`
   flex-direction: row;
 `;
-
-
 export const ItemImage = styled.Image`
   height: 80;
   width: 80;
@@ -54,11 +52,13 @@ export const ItemPrice = styled.Text`
   font-size: 16;
   font-weight: bold;
 `;
-
-export const ItemRemoveIcon = styled(Icon)`
+export const ItemButton = styled.TouchableOpacity`
   margin-top: 30;
+  position: absolute;
+  right: 5;
+`;
+export const ItemButtonIcon = styled(Icon)`
   color: #7159c1;
-  padding-left: 10;
 `;
 
 export const TextTotal = styled.Text`
@@ -75,7 +75,46 @@ export const TextTotalPrice = styled.Text`
   font-size: 24;
 `;
 
-// Button
+// Amount Row
+export const IncreaseDecrease = styled.View`
+  flex-direction: row;
+  width: 100%;
+  height: 50;
+  justify-content: flex-start;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-bottom: 10;
+  border-radius: 4px;
+`;
+export const IncreaseDecreaseButton = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+export const IncreaseDecreaseIcon = styled(Icon)`
+  color: #7159c1;
+  margin-left: 7;
+`;
+export const IncreaseDecreaseButtonInput = styled.TextInput`
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3;
+  width: 30;
+  text-align: center;
+  height: 40;
+  padding: 0;
+  margin-top: 5;
+  margin-left: 10;
+  margin-right: 5;
+  color: rgba(0, 0, 0, 0.5);
+`;
+export const IncreaseDecreaseSubtotal = styled.Text`
+  color: #333;
+  font-weight: bold;
+  align-self: center;
+  position: absolute;
+  right: 10;
+`;
+
+// Button Finalizar Compra
 export const ProfileButton = styled(RectButton)`
   flex-direction: row;
   margin-top: 10px;
@@ -94,15 +133,3 @@ export const TextAdd = styled.Text`
   color: #fff;
   padding-top: 2;
 `;
-
-// Remove and add buttons
-export const IncreaseDecrease = styled.View``;
-export const IncreaseDecreaseButton = styled.TouchableOpacity``;
-export const IncreaseDecreaseButtonInput = styled.TextInput`
-  border: 1px solid black;
-  width: 30;
-  text-align: center;
-`;
-export const IncreaseDecreaseSubtotal = styled.Text``;
-export const MdRemoveCircleOutline = styled(Icon)``;
-export const MdAddCircleOutline = styled(Icon)``;

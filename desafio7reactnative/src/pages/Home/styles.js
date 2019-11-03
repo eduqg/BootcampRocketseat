@@ -32,7 +32,9 @@ export const Card = styled.View`
 `;
 
 // Image
-
+export const Item = styled.View`
+  flex-direction: column;
+`;
 export const ItemImage = styled.Image`
   height: 180;
   width: 180;

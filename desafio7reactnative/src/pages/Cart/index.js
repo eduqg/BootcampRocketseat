@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   Container,
   Card,
@@ -15,20 +14,20 @@ import {
   TextTotal,
   TextTotalPrice,
   List,
-  ItemRemoveIcon,
+  ItemButton,
+  ItemButtonIcon,
   IncreaseDecrease,
   IncreaseDecreaseButton,
   IncreaseDecreaseButtonInput,
   IncreaseDecreaseSubtotal,
-  MdRemoveCircleOutline,
-  MdAddCircleOutline,
+  IncreaseDecreaseIcon,
 } from './styles';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class Cart extends Component {
   state = {
-    amount: 1,
-  }
+    amount: 2,
+  };
 
   handleFinish = () => {
     console.log('Hello');
@@ -64,6 +63,12 @@ export default class Cart extends Component {
       console.log('Decrement');
     }
 
+    function remove() {
+      console.log('Decrement');
+    }
+
+    const { amount } = this.state;
+
     return (
       <Container>
         <Card>
@@ -80,28 +85,35 @@ export default class Cart extends Component {
                     }}
                   />
                   <ItemDescription>
-                    <ItemDescriptionText>Uma descrição grande de um tênis bonito</ItemDescriptionText>
+                    <ItemDescriptionText>
+                      Uma descrição grande de um tênis bonito
+                    </ItemDescriptionText>
                     <ItemPrice>R$50,00</ItemPrice>
                   </ItemDescription>
-
-                  <ItemRemoveIcon
-                    name="remove-circle-outline"
-                    size={20}
-                    color="#333"
-                  />
+                  <ItemButton onPress={() => remove()}>
+                    <ItemButtonIcon name="close" size={20} color="#333" />
+                  </ItemButton>
                 </ItemHorizontal>
 
                 <IncreaseDecrease>
                   <IncreaseDecreaseButton onPress={() => decrement()}>
-                    <MdRemoveCircleOutline icon="add" size={20} color="#7159c1" />
+                    <IncreaseDecreaseIcon
+                      name="add-circle-outline"
+                      size={20}
+                      color="#333"
+                    />
                   </IncreaseDecreaseButton>
                   <IncreaseDecreaseButtonInput
-                    disabled
-                    value={"1"}
-                  // editable={this.state.TextInputDisableHolder}
+                    editable={false}
+                    selectTextOnFocus={false}
+                    value={`${amount}`}
                   />
                   <IncreaseDecreaseButton onPress={() => increment()}>
-                    <MdAddCircleOutline icon="add" size={20} color="#7159c1" />
+                    <IncreaseDecreaseIcon
+                      name="remove-circle-outline"
+                      size={20}
+                      color="#333"
+                    />
                   </IncreaseDecreaseButton>
                   <IncreaseDecreaseSubtotal>R$100,00</IncreaseDecreaseSubtotal>
                 </IncreaseDecrease>

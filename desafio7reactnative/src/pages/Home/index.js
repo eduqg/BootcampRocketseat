@@ -56,12 +56,12 @@ export default class Main extends Component {
     ];
     return (
       <Container>
-        <Card>
-          <List
-            data={items}
-            keyExtractor={item => item.id.toString()}
-            horizontal
-            renderItem={({ item }) => (
+        <List
+          data={items}
+          keyExtractor={item => `${item.id}`}
+          horizontal
+          renderItem={({ item }) => (
+            <Card>
               <Item>
                 <ItemImage
                   source={{
@@ -86,9 +86,9 @@ export default class Main extends Component {
                   <TextAdd>Adicionar</TextAdd>
                 </ProfileButton>
               </Item>
-            )}
-          />
-        </Card>
+            </Card>
+          )}
+        />
       </Container>
     );
   }
