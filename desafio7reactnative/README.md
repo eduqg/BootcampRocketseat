@@ -74,3 +74,6 @@ Criar arquivo .env com a chave CURRENT_LOCAL_IP=198.162.xx.xx para funcionar ess
 
 Redux e redux saga
 > yarn add redux react-redux redux-saga reactotron-redux
+
+Para criar drafts. Pego estado atual, realizo modificações em um rascunho e entãp aplico alterações no estado principal.
+> yarn add immer

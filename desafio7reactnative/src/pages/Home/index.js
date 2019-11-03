@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import api from '../../services/api';
 import { connect } from 'react-redux';
+import api from '../../services/api';
 // import { View, Text, Image } from 'react-native';
 
 import {
