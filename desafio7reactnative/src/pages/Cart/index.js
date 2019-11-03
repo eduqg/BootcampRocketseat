@@ -28,7 +28,7 @@ import {
 } from './styles';
 
 // eslint-disable-next-line react/prefer-stateless-function
-function Cart({ cart }) {
+function Cart({ cart, dispatch }) {
   // const [amount, setAmount] = useState(1);
 
   // handleFinish = () => {
@@ -61,7 +61,14 @@ function Cart({ cart }) {
                   <ItemDescriptionText>{item.description}</ItemDescriptionText>
                   <ItemPrice>R${item.price.toFixed(2)}</ItemPrice>
                 </ItemDescription>
-                <ItemButton onPress={() => { }}>
+                <ItemButton
+                  onPress={() =>
+                    dispatch({
+                      type: 'REMOVE_FROM_CART',
+                      id: item.id,
+                    })
+                  }
+                >
                   <ItemButtonIcon name="close" size={20} color="#333" />
                 </ItemButton>
               </ItemHorizontal>
