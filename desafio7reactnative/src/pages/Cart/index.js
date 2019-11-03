@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Text, View } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage'
-import api from '../../services/api';
+import { bindActionCreators } from 'redux';
+import * as CartActions from '../../store/modules/cart/actions';
 
 import {
   Container,
@@ -28,7 +27,7 @@ import {
 } from './styles';
 
 // eslint-disable-next-line react/prefer-stateless-function
-function Cart({ cart, dispatch }) {
+function Cart({ cart, removeFromCart }) {
   // const [amount, setAmount] = useState(1);
 
   // handleFinish = () => {
@@ -61,14 +60,7 @@ function Cart({ cart, dispatch }) {
                   <ItemDescriptionText>{item.description}</ItemDescriptionText>
                   <ItemPrice>R${item.price.toFixed(2)}</ItemPrice>
                 </ItemDescription>
-                <ItemButton
-                  onPress={() =>
-                    dispatch({
-                      type: 'REMOVE_FROM_CART',
-                      id: item.id,
-                    })
-                  }
-                >
+                <ItemButton onPress={() => removeFromCart(item.id)}>
                   <ItemButtonIcon name="close" size={20} color="#333" />
                 </ItemButton>
               </ItemHorizontal>
@@ -109,8 +101,11 @@ function Cart({ cart, dispatch }) {
   );
 }
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
 const mapStateToProps = state => ({
   cart: state.cart,
 });
 
-export default connect(mapStateToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
