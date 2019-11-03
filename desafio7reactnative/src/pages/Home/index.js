@@ -41,9 +41,9 @@ class Home extends Component {
     }
   }
 
-  handleAddProduct = product => {
-    const { addToCart } = this.props;
-    addToCart(product);
+  handleAddProduct = id => {
+    const { addToCartRequest } = this.props;
+    addToCartRequest(id);
   };
 
   render() {
@@ -62,7 +62,7 @@ class Home extends Component {
                 <ItemDescription>{item.title} tenis bonito</ItemDescription>
                 <ItemPrice>{item.price}</ItemPrice>
 
-                <ProfileButton onPress={() => this.handleAddProduct(item)}>
+                <ProfileButton onPress={() => this.handleAddProduct(item.id)}>
                   <ButtonNumber>
                     <ButtonNumberText>
                       {amountArray[item.id] || 0}

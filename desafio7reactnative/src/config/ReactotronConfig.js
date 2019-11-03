@@ -1,4 +1,7 @@
 import Reactotron from 'reactotron-react-native';
+import { reactotronRedux } from 'reactotron-redux';
+import sagaPlugin from 'reactotron-redux-saga';
+import apisaucePlugin from 'reactotron-apisauce';
 import { CURRENT_LOCAL_IP } from 'react-native-dotenv';
 
 // Retorna true para ambiente de desenvolvimento
@@ -7,6 +10,9 @@ if (__DEV__) {
     host: `${CURRENT_LOCAL_IP}`,
     port: 9090,
   })
+    .use(reactotronRedux())
+    .use(sagaPlugin())
+    .use(apisaucePlugin())
     .useReactNative()
     .connect();
 

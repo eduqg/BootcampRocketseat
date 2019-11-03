@@ -77,3 +77,6 @@ Redux e redux saga
 
 Para criar drafts. Pego estado atual, realizo modificações em um rascunho e entãp aplico alterações no estado principal.
 > yarn add immer
+
+Add debug to redux-saga. apisauce convert responses into reactotron.
+> yarn add reactotron-redux-saga reactotron-apisauce
