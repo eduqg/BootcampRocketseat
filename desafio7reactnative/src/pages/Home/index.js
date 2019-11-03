@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, Image } from 'react-native';
+import api from '../../services/api';
+// import { View, Text, Image } from 'react-native';
+
 import {
   ProfileButton,
   Container,
@@ -16,8 +18,6 @@ import {
   List,
 } from './styles';
 
-import logo from '../../assets/logo.png';
-
 export default class Main extends Component {
   // Somente deve ser validado o que for usado dentro desta classe
   // eslint-disable-next-line react/static-property-placement
@@ -26,6 +26,11 @@ export default class Main extends Component {
       navigate: PropTypes.func,
     }).isRequired,
   };
+
+  async componentDidMount() {
+    const products = await api.get('products');
+    console.tron.log(products.data);
+  }
 
   handleNavigate = () => {
     const { navigation } = this.props;

@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-
 // Não posso fazer estilos encadeados no react-native
 export const Container = styled.View`
   flex: 1;
@@ -66,10 +65,8 @@ export const ButtonNumber = styled.Text`
   flex-direction: row;
   align-items: center;
 `;
-export const ButtonNumberText = styled.Text`
-`;
-export const ButtonNumberIcon = styled(Icon)`
-`;
+export const ButtonNumberText = styled.Text``;
+export const ButtonNumberIcon = styled(Icon)``;
 
 export const TextAdd = styled.Text`
   margin-left: 30;
@@ -79,21 +76,3 @@ export const TextAdd = styled.Text`
   color: #fff;
   padding-top: 2;
 `;
-
-
-
-
-
-
-
-
-
-
-
-
-
-export const ButtonLeftCart = styled.Text`
-`;
-
-
-

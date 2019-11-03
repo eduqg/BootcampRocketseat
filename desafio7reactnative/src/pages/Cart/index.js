@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage'
+import api from '../../services/api';
+
 import {
   Container,
   Card,
@@ -33,7 +36,20 @@ export default class Cart extends Component {
     console.log('Hello');
   };
 
+  decrement = () => {
+    console.log('Decrement');
+  };
+
+  increment = () => {
+    console.log('Decrement');
+  };
+
+  remove = () => {
+    console.log('Remove');
+  };
+
   render() {
+    const { amount } = this.state;
     const items = [
       {
         id: 1,
@@ -54,20 +70,6 @@ export default class Cart extends Component {
         image: 'url da img',
       },
     ];
-
-    function decrement() {
-      console.log('Decrement');
-    }
-
-    function increment() {
-      console.log('Decrement');
-    }
-
-    function remove() {
-      console.log('Decrement');
-    }
-
-    const { amount } = this.state;
 
     return (
       <Container>
@@ -126,9 +128,8 @@ export default class Cart extends Component {
           <ProfileButton onPress={this.handleFinish}>
             <TextAdd>Finalizar Compra</TextAdd>
           </ProfileButton>
-
         </Card>
       </Container>
-    )
+    );
   }
 }
