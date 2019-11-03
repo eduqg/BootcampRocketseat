@@ -27,7 +27,7 @@ import {
 } from './styles';
 
 // eslint-disable-next-line react/prefer-stateless-function
-function Cart({ cart, removeFromCart, updateAmount }) {
+function Cart({ cart, removeFromCart, updateAmount, total }) {
   // const [amount, setAmount] = useState(1);
 
   // handleFinish = () => {
@@ -58,7 +58,7 @@ function Cart({ cart, removeFromCart, updateAmount }) {
                 <ItemImage source={{ uri: item.image }} />
                 <ItemDescription>
                   <ItemDescriptionText>{item.description}</ItemDescriptionText>
-                  <ItemPrice>R${item.price.toFixed(2)}</ItemPrice>
+                  <ItemPrice>R$ {item.price.toFixed(2)}</ItemPrice>
                 </ItemDescription>
                 <ItemButton onPress={() => removeFromCart(item.id)}>
                   <ItemButtonIcon name="close" size={20} color="#333" />
@@ -85,14 +85,16 @@ function Cart({ cart, removeFromCart, updateAmount }) {
                     color="#333"
                   />
                 </IncreaseDecreaseButton>
-                <IncreaseDecreaseSubtotal>R$100,00</IncreaseDecreaseSubtotal>
+                <IncreaseDecreaseSubtotal>
+                  {item.subtotal.toFixed(2)}
+                </IncreaseDecreaseSubtotal>
               </IncreaseDecrease>
             </Item>
           )}
         />
 
         <TextTotal>Total</TextTotal>
-        <TextTotalPrice>R$1000,00</TextTotalPrice>
+        <TextTotalPrice>R$ {total.toFixed(2)}</TextTotalPrice>
         <ProfileButton onPress={() => { }}>
           <TextAdd>Finalizar Compra</TextAdd>
         </ProfileButton>
@@ -105,7 +107,16 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
 
 const mapStateToProps = state => ({
-  cart: state.cart,
+  cart: state.cart.map(product => ({
+    ...product,
+    subtotal: product.price * product.amount,
+  })),
+  total: state.cart.reduce((total, product) => {
+    return total + product.price * product.amount;
+  }, 0),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Cart);
