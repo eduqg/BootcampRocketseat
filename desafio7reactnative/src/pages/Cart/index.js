@@ -27,7 +27,7 @@ import {
 } from './styles';
 
 // eslint-disable-next-line react/prefer-stateless-function
-function Cart({ cart, removeFromCart, updateAmount, total }) {
+function Cart({ cart, removeFromCart, updateAmountRequest, total }) {
   // const [amount, setAmount] = useState(1);
 
   // handleFinish = () => {
@@ -35,11 +35,11 @@ function Cart({ cart, removeFromCart, updateAmount, total }) {
   // };
 
   function increment(product) {
-    updateAmount(product.id, product.amount + 1);
+    updateAmountRequest(product.id, product.amount + 1);
   }
 
   function decrement(product) {
-    updateAmount(product.id, product.amount - 1);
+    updateAmountRequest(product.id, product.amount - 1);
   }
 
   // remove = () => {
