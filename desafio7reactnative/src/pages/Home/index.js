@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import api from '../../services/api';
 import * as CartActions from '../../store/modules/cart/actions';
@@ -21,69 +21,63 @@ import {
   List,
 } from './styles';
 
-class Home extends Component {
-  // Somente deve ser validado o que for usado dentro desta classe
-  // eslint-disable-next-line react/static-property-placement
-  static propTypes = {
-    navigation: PropTypes.shape({
-      navigate: PropTypes.func,
-    }).isRequired,
-  };
+function Home({ navigation, addToCartRequest }) {
+  const [products, setProducts] = useState([]);
+  // Use selector retorna o estado inteiro, selecionamos um
+  const amountArray = useSelector(state =>
+    state.cart.reduce((amountState, product) => {
+      amountState[product.id] = product.amount;
+      return amountState;
+    }, {})
+  );
 
-  state = {
-    products: [],
-  };
+  useEffect(() => {
+    async function loadProducts() {
+      const response = await api.get('products');
 
-  async componentDidMount() {
-    const products = await api.get('products');
-    if (products) {
-      this.setState({ products: products.data });
+      setProducts(response.data);
     }
-  }
+    loadProducts();
+  }, []);
 
-  handleAddProduct = id => {
-    const { addToCartRequest } = this.props;
+  function handleAddProduct(id) {
     addToCartRequest(id);
-    this.props.navigation.navigate('Cart');
-  };
-
-  render() {
-    const { products } = this.state;
-    const { amountArray } = this.props;
-    return (
-      <Container>
-        <List
-          data={products}
-          keyExtractor={item => `${item.id}`}
-          horizontal
-          renderItem={({ item }) => (
-            <Card>
-              <Item>
-                <ItemImage source={{ uri: item.image }} alt={item.title} />
-                <ItemDescription>{item.title} tenis bonito</ItemDescription>
-                <ItemPrice>{item.price}</ItemPrice>
-
-                <ProfileButton onPress={() => this.handleAddProduct(item.id)}>
-                  <ButtonNumber>
-                    <ButtonNumberText>
-                      {amountArray[item.id] || 0}
-                    </ButtonNumberText>
-                    <ButtonNumberIcon
-                      name="add-shopping-cart"
-                      size={20}
-                      color="#fff"
-                    />
-                  </ButtonNumber>
-
-                  <TextAdd>Adicionar</TextAdd>
-                </ProfileButton>
-              </Item>
-            </Card>
-          )}
-        />
-      </Container>
-    );
+    navigation.navigate('Cart');
   }
+
+  return (
+    <Container>
+      <List
+        data={products}
+        keyExtractor={item => `${item.id}`}
+        horizontal
+        renderItem={({ item }) => (
+          <Card>
+            <Item>
+              <ItemImage source={{ uri: item.image }} alt={item.title} />
+              <ItemDescription>{item.title} tenis bonito</ItemDescription>
+              <ItemPrice>{item.price}</ItemPrice>
+
+              <ProfileButton onPress={() => handleAddProduct(item.id)}>
+                <ButtonNumber>
+                  <ButtonNumberText>
+                    {amountArray[item.id] || 0}
+                  </ButtonNumberText>
+                  <ButtonNumberIcon
+                    name="add-shopping-cart"
+                    size={20}
+                    color="#fff"
+                  />
+                </ButtonNumber>
+
+                <TextAdd>Adicionar</TextAdd>
+              </ProfileButton>
+            </Item>
+          </Card>
+        )}
+      />
+    </Container>
+  );
 }
 
 const mapStateToProps = state => ({

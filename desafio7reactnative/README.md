@@ -1,6 +1,38 @@
-## RocketShoes Mobile
+## RocketShoes Mobile Desafios 7 e 8
 
 ### Projeto utilizando React Native, Redux e Redux Saga
+
+### Funcionalidades
+
+* Listagem de produtos.
+* Adicionar no Carrinho.
+* Remover do Carrinho.
+* Calculo de Subtotal e Total.
+* Verificação de disponibilidade no estoque.
+
+### Imagens da aplicação
+
+<img src="./src/assets/home.jpeg" width="40%" height="40%" style="margin-right:30px;"><img src="./src/assets/cart.jpeg" width="40%" height="40%">
+
+### Tecnologias Utilizadas
+
+* Editorconfig
+* ESLInt
+* Prettier
+* Reactotron
+* Styled Components
+* Vector Icons
+* PropTypes
+* Navigation
+* Redux
+* Redux Saga
+* Toast
+* Json-server
+* Axios
+* Env variables
+* Reactotron
+* Immer
+* FlatList
 
 ### Comandos de Desenvolvimento
 
