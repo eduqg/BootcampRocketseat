@@ -14,3 +14,25 @@ Para conseguir fazer configurações de testes, é necessário instalar o rewire
 
 ___
 
+Lib para testar componentes no react (facilita montagem), adiciona funcionalidades para jest criar expectations baseados na DOM do html.
+
+> yarn add @testing-library/react @testing-library/jest-dom -D
+
+___
+
+Para intellisense no jest:
+
+> yarn add @types/jest -D
+
+___
+
+No package.json
+
+```console
+"setupFilesAfterEnv": [
+  "@testing-library/react/cleanup-after-each", <- deprecated
+  "@testing-library/jest-dom/extend-expect"
+],
+```
+___
+
