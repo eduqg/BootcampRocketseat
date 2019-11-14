@@ -1,9 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Cria html 'fake'
 import { render, fireEvent, cleanup } from '@testing-library/react';
 
+import { addTech } from '~/store/modules/techs/actions';
 import TechList from '~/components/TechList';
 
 jest.mock('react-redux');
@@ -18,6 +19,26 @@ describe('TechList component', () => {
 
     expect(getByTestId('tech-list')).toContainElement(getByText('Node.js'));
     expect(getByTestId('tech-list')).toContainElement(getByText('ReactJS'));
+  });
+
+  // Preciso testar se action foi disparada
+  it('should be able to add new tech', () => {
+    const { getByTestId, getByLabelText } = render(<TechList />);
+
+    // Função do jest que posso monitorar
+    const dispatch = jest.fn();
+
+    // Toda vez que o useDispatch for chamado, vou alterar o retorno
+    useDispatch.mockReturnValue(dispatch);
+
+    fireEvent.change(getByLabelText('Tech'), {
+      target: { value: 'Node.js' }
+    });
+    fireEvent.submit(getByTestId('tech-form'));
+
+    console.log(dispatch.mock.calls);
+
+    expect(dispatch).toHaveBeenCalledWith(addTech('Node.js'));
   });
 
 
