@@ -36,3 +36,8 @@ No package.json
 ```
 ___
 
+> yarn add jest-localstorage-mock -D
+
+___
+
+>
