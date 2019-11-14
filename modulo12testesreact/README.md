@@ -43,3 +43,7 @@ ___
 Para teste de redux. Mocks.
 
 > yarn add redux react-redux
+
+___
+
+> yarn add redux-saga axios
