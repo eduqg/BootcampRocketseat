@@ -40,4 +40,6 @@ ___
 
 ___
 
->
+Para teste de redux. Mocks.
+
+> yarn add redux react-redux

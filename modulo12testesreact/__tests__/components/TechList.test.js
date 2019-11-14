@@ -1,10 +1,27 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 // Cria html 'fake'
 import { render, fireEvent, cleanup } from '@testing-library/react';
 
 import TechList from '~/components/TechList';
 
+jest.mock('react-redux');
+
 describe('TechList component', () => {
+  it('should render tech list', () => {
+    useSelector.mockImplementation(cb => cb({
+      techs: ['Node.js', 'ReactJS']
+    }));
+
+    const { getByText, getByTestId } = render(<TechList />);
+
+    expect(getByTestId('tech-list')).toContainElement(getByText('Node.js'));
+    expect(getByTestId('tech-list')).toContainElement(getByText('ReactJS'));
+  });
+
+
+  /*
   // Sempre que usar api externa, devo criar mock
   beforeEach(() => {
     localStorage.clear();
@@ -42,4 +59,5 @@ describe('TechList component', () => {
     expect(localStorage.setItem).toHaveBeenCalledWith('techs', JSON.stringify(['Node.js']));
     expect(getByTestId('tech-list')).toContainElement(getByText('Node.js'));
   });
+  */
 });
