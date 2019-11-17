@@ -7,3 +7,9 @@ Biblioteca que inicializa projetos base Node, ReactJS e ReactNative
 Vamos inicializar apenas server
 
 > omni init modulo11 --only=server
+
+> yarn add pg
+
+> yarn add jest -D
+
+> yarn jest --init
