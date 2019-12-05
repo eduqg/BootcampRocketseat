@@ -23,14 +23,16 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
-  const [ballY, setBallY] = useState(new Animated.Value(0));
+  const [ballY] = useState(new Animated.Value(0));
+  // Posso usar add, multiplay, subtract, modulo também
+  const [ballX] = useState(Animated.multiply(ballY, 0.3));
 
   // timing = animação linear. duration: 3000,
   // sprint = mesmo que linear, mas efeito elastico. Ao final ele quica. bounciness: 20,
   // decay = joga objeto para cima ou para beixo.
   useEffect(() => {
     Animated.decay(ballY, {
-      velocity: 1,
+      velocity: 0.5,
       // toValue: 500,
       // duration: 3000,
       // bounciness: 20,
@@ -39,7 +41,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.ball, { top: ballY }]} />
+      <Animated.View style={[styles.ball, { top: ballY, left: ballX }]} />
+      <Text>Olá</Text>
     </View>
   );
 }
