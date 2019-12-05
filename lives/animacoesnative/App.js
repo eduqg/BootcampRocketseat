@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Animated, StyleSheet } from 'react-native';
+// PanResponder monitora gestos do usuário
+import { View, Text, Animated, StyleSheet, PanResponder } from 'react-native';
 
 // Animated exporta
 
@@ -24,33 +25,56 @@ const styles = StyleSheet.create({
 
 export default function App() {
   // Posso usar add, multiplay, subtract, modulo também
-  const [ballY] = useState(new Animated.Value(0));
+  const [ball] = useState(new Animated.ValueXY({ x: 0, y: 0 }));
+  // PanResponder pode ser utilizado para arrastar, dar zoom
+  const panResponder = new PanResponder.create({
+    onMoveShouldSetPanResponder: (e, gestureState) => {
+      // if (gestureState.dx > 100) {
+      //   return false;
+      // }
+      return true;
+    },
+    onPanResponderGrant: (e, gestureState) => {
+      // Salva local depois da primeira interação do usuário
+      ball.setOffset({
+        x: ball.x._value,
+        y: ball.y._value,
+      });
+    },
+    onPanResponderMove: Animated.event(
+      [
+        null,
+        {
+          dx: ball.x,
+          dy: ball.y,
+        },
+      ],
+      {
+        listener: (e, gestureState) => {
+          // Guarda onde o usuário moveu o elemento, posso fazer outras ações
+          console.log(gestureState);
+        },
+      }
+    ),
+    onPanResponderRelease: () => {
+      // Reseta offset pois ele buga apos alguns interações
+      ball.flattenOffset();
+    },
+  });
 
   // timing = animação linear. duration: 3000,
   // sprint = mesmo que linear, mas efeito elastico. Ao final ele quica. bounciness: 20,
   // decay = joga objeto para cima ou para beixo.
-  useEffect(() => {
-    Animated.timing(ballY, {
-      toValue: 300,
-      duration: 1000,
-    }).start();
-  }, []); // eslint-disable-line
+  useEffect(() => { }, []); // eslint-disable-line
 
   return (
     <View style={styles.container}>
       <Animated.View
+        {...panResponder.panHandlers}
         style={[
           styles.ball,
           {
-            top: ballY,
-            opacity: ballY.interpolate({
-              // Defino o meu range (está em toValue)
-              inputRange: [0, 300],
-              // Defino o quanto quero de opacidade em 0 e em 300
-              outputRange: [1, 0.2],
-              // quando chegar no valor 300, parar. Não alterar mais a opacidade.
-              extrapolate: 'clamp',
-            }),
+            transform: [{ translateX: ball.x }, { translateY: ball.y }],
           },
         ]}
       />
