@@ -3,8 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 
 import { Repository } from '../../store/ducks/repositories/types';
-import * as RepositoryActions from '../../store/ducks/repositories/actions';
 import { ApplicationState } from '../../store';
+
+import * as RepositoryActions from '../../store/ducks/repositories/actions';
+
+import RepositoryItem from '../RepositoryItem';
 
 // Mapeia informações que vem do mapStateToProps
 interface StateProps {
@@ -26,7 +29,8 @@ type Props = StateProps & DispatchProps & OwnProps;
 class RepositoryList extends Component<Props> {
   componentDidMount() {
     const { loadRequest } = this.props;
-    // Ao realizar loadRequest, não sabemos o tipo do retorno, por isso criar a interface de DispatchProps
+    // Ao realizar loadRequest,
+    // não sabemos o tipo do retorno, por isso criar a interface de DispatchProps
     loadRequest();
   }
 
@@ -36,7 +40,10 @@ class RepositoryList extends Component<Props> {
 
     return (
       <ul>
-        {repositories.map((repository) => repository.name)}
+        {repositories.map((repository) => (
+          <RepositoryItem key={repository.id} repository={repository} />
+        ))}
+
       </ul>
     );
   }

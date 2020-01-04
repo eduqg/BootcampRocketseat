@@ -31,3 +31,15 @@ Biblioteca que ajuda manter actions legível, menos verbosa e de acordo com as r
 ```console
 yarn add typesafe-actions
 ```
+
+Para fazer chamadas a api do github.
+
+```console
+yarn add axios
+```
+
+Instalar Redux Saga
+```console
+yarn add redux-saga
+yarn add @types/redux-saga -D 
+```
