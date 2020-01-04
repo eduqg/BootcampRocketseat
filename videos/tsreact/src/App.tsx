@@ -1,9 +1,14 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+
+import RepositoryList from './components/RepositoryList';
+
+import store from './store';
 
 const App: React.FC = () => (
-  <div className="App">
-    <h1>Hello ts</h1>
-  </div>
+  <Provider store={store}>
+    <RepositoryList />
+  </Provider>
 );
 
 export default App;
