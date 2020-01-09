@@ -50,6 +50,13 @@ Para rodar o servidor
 adonis serve --dev
 ```
 
-```console
+Guia de estilo, vamos utilizar o standart, que é usado pelo adonis. Usar o stile guide do framework é mais indicado.
 
+Sem ponto e vírgula no fim da linha. Espaço entre métodos e parenteses.
+
+```console
+yarn add eslint -D
+yarn eslint --init
 ```
+
+Editar globals no eslintrc.json para usar sintaxe use do adonis.
