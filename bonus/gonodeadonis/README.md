@@ -60,3 +60,15 @@ yarn eslint --init
 ```
 
 Editar globals no eslintrc.json para usar sintaxe use do adonis.
+
+Escolher banco de dados
+
+```console
+yarn add pg
+```
+
+Configurar variáveis de ambiente .env. Criar database.
+
+```console
+adonis migration:run
+```
