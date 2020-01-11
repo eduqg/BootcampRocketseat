@@ -72,3 +72,16 @@ Configurar variáveis de ambiente .env. Criar database.
 ```console
 adonis migration:run
 ```
+## Controllers
+
+```console
+adonis make:controller User 
+```
+
+Escolher a opção 'For HTTP requests'
+
+Lista rotas.
+
+```console
+adonis route:list
+```
