@@ -85,3 +85,13 @@ Lista rotas.
 ```console
 adonis route:list
 ```
+
+## Migrations
+
+Roolback migrations. Quando o código ainda não estiver com outros desenvolvedores ou no github, posso alterar a migration (tomar cuidado).
+
+```console
+adonis migration:rollback 
+```
+
+
