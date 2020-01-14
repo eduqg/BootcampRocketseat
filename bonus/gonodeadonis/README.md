@@ -94,4 +94,8 @@ Roolback migrations. Quando o código ainda não estiver com outros desenvolvedo
 adonis migration:rollback 
 ```
 
+## Mail
 
+```console
+adonis install @adonisjs/mail
+```
