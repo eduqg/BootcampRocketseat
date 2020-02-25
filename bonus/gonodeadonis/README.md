@@ -99,3 +99,11 @@ adonis migration:rollback
 ```console
 adonis install @adonisjs/mail
 ```
+
+## Comandos uteis
+
+adonis make:model File -m -c
+
+-m = cria migration
+-c = cria controller 
+
