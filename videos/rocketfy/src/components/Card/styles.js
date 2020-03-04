@@ -1,21 +1,10 @@
 import styled, {css} from 'styled-components';
 
 export const Container = styled.div`
-  border: 1px solid red;
+  /* border: 1px solid red; */
   cursor: grab;
 
-  ${props => props.isDragging && css`
-    border: 2px dashed rgba(0,0,0,0.2);
-    padding-top: 31px;
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-    cursor: grabbing;
-
-    > div {
-      opacity: 0;
-    }
-  `}
+  
 `;
 
 export const Content = styled.div`
@@ -27,10 +16,35 @@ export const Content = styled.div`
   padding: 15px;
   margin: 15px;
 
-  header {
+  ${props => props.isDragging && css`
+    border: 2px dashed rgba(0,0,0,0.2);
+    padding-top: 31px;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    cursor: grabbing;
+
+    header, p, img {
+      opacity: 0;
+    }
+
+   
+  `}
+
+  > header {
     position: absolute;
-    top: -5px;
+    top: -8px;
     left: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 230px;
+
+
+    button {
+      background: transparent;
+    }
   }
 
   p {

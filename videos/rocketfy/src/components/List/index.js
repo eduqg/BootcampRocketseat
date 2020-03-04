@@ -1,29 +1,24 @@
-import React, {useRef, useContext, useState, useEffect} from 'react';
-import {useDrag, useDrop} from 'react-dnd';
+import React, { useContext} from 'react';
+import {useDrop} from 'react-dnd';
 import BoardContext from '../Board/context';
 
 import Card from '../Card';
 
 import {FaPlus} from 'react-icons/fa';
 
-import { Container } from './styles';
+import { Container,AddCard } from './styles';
 
 export default function List({data, index: listIndex}) {
   const {moveEmpty} = useContext(BoardContext);
 
-
-  useEffect(() => {
-    // console.log(data)
-  }, []); // eslint-disable-line
-
   const [, dropEmpty] = useDrop({
     accept: 'CARD',
+
     drop(item, monitor) {
       const draggedListIndex = item.listIndex;
       const targetListIndex = listIndex;
 
       const draggedIndex = item.index;
-
      
       if(draggedListIndex === targetListIndex) {
         return;
@@ -36,8 +31,7 @@ export default function List({data, index: listIndex}) {
 
 
   return (
-    // ref={dropEmpty} 
-    <Container done={data.done}>
+    <Container  ref={dropEmpty}  done={data.done}>
       <header>
         <h2>{data.title}</h2>
         {data.creatable && (
@@ -49,7 +43,7 @@ export default function List({data, index: listIndex}) {
       </header>
 
       <ul>
-        {data.cards.map((card, index) => (
+        {data.cards.length ? data.cards.map((card, index) => (
           <Card
             key={card.id}
             listIndex={listIndex}
@@ -57,9 +51,12 @@ export default function List({data, index: listIndex}) {
             data={card}
             cardId={card.id}
           />
-        ))}
+        )): (
+          <AddCard>
+            <h2>Arraste um card para adicionar</h2>  
+          </AddCard>
+        )}
       </ul>
-
     </Container>
   );
 }

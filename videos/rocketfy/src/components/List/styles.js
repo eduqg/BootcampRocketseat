@@ -25,7 +25,7 @@ export const Container = styled.div`
 
   }
 
-  header {
+  > header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -55,4 +55,20 @@ export const Container = styled.div`
 
 
   }
+`;
+
+export const AddCard = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 100%;
+    border: 2px dashed rgba(0,0,0,0.2);
+    margin-top: 15px;
+
+    h2 {
+      color: rgba(0,0,0,0.2);
+      font-size: 14px;
+      font-weight: lighter;
+    }
 `;
