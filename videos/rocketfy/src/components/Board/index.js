@@ -15,7 +15,9 @@ export default function Board() {
   const [lists, setLists] = useState(data);
 
   function move(fromList, toList, from, to) {
-    console.log(from, to)
+    // console.log(from, to)
+    console.log('Esta no move interno')
+      
     setLists(produce(lists, draft => {
       const dragged = draft[fromList].cards[from];
 
@@ -24,9 +26,23 @@ export default function Board() {
       draft[toList].cards.splice(to, 0, dragged);
     }))
   }
+
+  function moveEmpty(fromList, toList, from, to) {
+    // console.log(from, to)
+    console.log('Move para Vazio')
+      
+    setLists(produce(lists, draft => {
+      const dragged = draft[fromList].cards[from];
+
+
+      // removo item que está sendo arrastado na lista
+      draft[fromList].cards.splice(from, 1);
+      draft[toList].cards.push(dragged);
+    }))
+  }
   
   return (
-    <BoardContext.Provider value={{lists, move}}>
+    <BoardContext.Provider value={{lists, move, moveEmpty}}>
       <Container>
         {lists.map((list, index) => <List key={list.title} index={index} data={list} />)}
       </Container>

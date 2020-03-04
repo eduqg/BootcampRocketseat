@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   padding: 0 15px;
-  height: 100%;
   opacity: ${props => props.done ? 0.6 : 1};
 
   /* 
@@ -23,6 +22,7 @@ export const Container = styled.div`
   /* $ + = Para referenciar elemento que precede. Quero estilizar toda div que antes dele tenha uma div */
   & + div {
     border-left: 1px solid rgba(0,0,0,0.05);
+
   }
 
   header {
@@ -31,6 +31,7 @@ export const Container = styled.div`
     align-items: center;
     height: 42px;
     padding-bottom: 32px;
+
 
     h2 {
       font-weight: 500;
@@ -49,6 +50,7 @@ export const Container = styled.div`
 
     ul {
       margin-top: 30px;
+
     }
 
 

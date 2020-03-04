@@ -1,15 +1,31 @@
 import styled, {css} from 'styled-components';
 
 export const Container = styled.div`
+  border: 1px solid red;
+  cursor: grab;
+
+  ${props => props.isDragging && css`
+    border: 2px dashed rgba(0,0,0,0.2);
+    padding-top: 31px;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    cursor: grabbing;
+
+    > div {
+      opacity: 0;
+    }
+  `}
+`;
+
+export const Content = styled.div`
   position: relative;
   background-color: #fff;
   border-radius: 5px;
-  margin-bottom: 10px;
-  padding: 15px;
   box-shadow: 0 1px 4px 0 rgba(192,208,230,0.8);
   border-top: 20px solid rgba(230,236,245,0.4);
-  cursor: grab;
-
+  padding: 15px;
+  margin: 15px;
 
   header {
     position: absolute;
@@ -32,19 +48,7 @@ export const Container = styled.div`
 
   /* o css é utilizado quando quero passar multiplas informações de css baseadas em uma condição */
   /* Se tiver uma propriedade isDragging, renderizo os atributos */
-  ${props => props.isDragging && css`
-    border: 2px dashed rgba(0,0,0,0.2);
-    padding-top: 31px;
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-    cursor: grabbing;
-
-    p, img, header {
-      opacity: 0;
-    }
-
-  `}
+  
 `;
 
 export const Label = styled.span`
