@@ -32,8 +32,6 @@ export default function Card({data, index, listIndex, cardId}) {
     // função chamada quando passo card em cima do outro
     // monitor dá distancias na tela por exemplo
 
-
-
     hover(item, monitor) {
       const draggedListIndex = item.listIndex;
       const targetListIndex = listIndex;
@@ -87,7 +85,7 @@ export default function Card({data, index, listIndex, cardId}) {
   return (
     <>
     
-    <Container ref={ref} isDragging={isClicking} onClick={handleOpenModal}>
+    <Container ref={ref} onClick={handleOpenModal}>
       <Content isDragging={isClicking}>
         <header>
           {data.labels.length ? data.labels.map(label => <Label key={label} color={label} />) : (<span></span>)}

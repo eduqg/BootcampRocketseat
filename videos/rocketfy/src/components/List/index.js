@@ -6,7 +6,7 @@ import Card from '../Card';
 
 import {FaPlus} from 'react-icons/fa';
 
-import { Container,AddCard } from './styles';
+import { Container,AddCard,ListCards } from './styles';
 
 export default function List({data, index: listIndex}) {
   const {moveEmpty} = useContext(BoardContext);
@@ -31,7 +31,7 @@ export default function List({data, index: listIndex}) {
 
 
   return (
-    <Container  ref={dropEmpty}  done={data.done}>
+    <Container    done={data.done}>
       <header>
         <h2>{data.title}</h2>
         {data.creatable && (
@@ -42,7 +42,7 @@ export default function List({data, index: listIndex}) {
  
       </header>
 
-      <ul>
+      <ListCards>
         {data.cards.length ? data.cards.map((card, index) => (
           <Card
             key={card.id}
@@ -52,11 +52,13 @@ export default function List({data, index: listIndex}) {
             cardId={card.id}
           />
         )): (
-          <AddCard>
-            <h2>Arraste um card para adicionar</h2>  
+          <AddCard ref={dropEmpty}>
+            <div>
+              <h2>Arraste um card para adicionar</h2>  
+            </div>
           </AddCard>
         )}
-      </ul>
+      </ListCards>
     </Container>
   );
 }

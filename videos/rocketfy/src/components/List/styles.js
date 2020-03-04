@@ -47,28 +47,33 @@ export const Container = styled.div`
       border: 0;
       cursor: pointer;
     }
-
-    ul {
-      margin-top: 30px;
-
-    }
-
-
   }
 `;
 
+export const ListCards = styled.div`
+  padding: 5px;
+  border-radius: 5px;
+  background: rgba(0,0,0,0.03);
+
+`;
+
 export const AddCard = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 80px;
     width: 100%;
-    border: 2px dashed rgba(0,0,0,0.2);
-    margin-top: 15px;
+    padding: 12px;
 
-    h2 {
-      color: rgba(0,0,0,0.2);
-      font-size: 14px;
-      font-weight: lighter;
+    div {
+      display: flex;
+      border: 2px dashed rgba(0,0,0,0.2);
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+
+      h2 {
+        color: rgba(0,0,0,0.2);
+        font-size: 14px;
+        font-weight: lighter;
+      }
     }
 `;
