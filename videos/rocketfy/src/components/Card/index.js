@@ -10,12 +10,10 @@ import {FaMinusCircle} from 'react-icons/fa';
 // Problemas com a abordagem de acordo com o Diego: 
 // 1) drag e drop apenas funciona se colocar em cima de card
 // 2) Caso não tenha nenhum item, não é possível colocar novos cards
-
 export default function Card({data, index, listIndex, cardId}) {
   const ref = useRef();
-  const {move} = useContext(BoardContext);
+  const {move, remove} = useContext(BoardContext);
   const [isClicking, setIsClicking] = useState(false);
-  const [showModal, setShowModal] = useState(false);
 
   // pego as props e pego a referencia que deve ser colocada na div que quero para o efeito
   const [, dragRef] = useDrag({
@@ -39,11 +37,7 @@ export default function Card({data, index, listIndex, cardId}) {
       const draggedIndex = item.index;
       const targetIndex = index;
 
-
-      // {console.log('Card que peguei: ',cardId, 'Card sobre', item.cardId)}
-
       cardId === item.cardId ? setIsClicking(true) : setIsClicking(false)
-      
 
       // Arraste na mesma lista, segunda condição = se id do dragged é igual ao do target
       if(draggedIndex === targetIndex && draggedListIndex === targetListIndex) {
@@ -78,21 +72,23 @@ export default function Card({data, index, listIndex, cardId}) {
   // junta dois refs em um
   dragRef(dropRef(ref));
 
-  function handleOpenModal() {
-    setShowModal(!showModal);
+  // function handleOpenModal() {
+  //   setShowModal(!showModal);
+  // }
+
+  function handleRemove(){
+    remove(listIndex, index)
   }
 
   return (
     <>
-    
-    <Container ref={ref} onClick={handleOpenModal}>
+    <Container ref={ref} >
       <Content isDragging={isClicking}>
         <header>
           {data.labels.length ? data.labels.map(label => <Label key={label} color={label} />) : (<span></span>)}
-          <button type="button">
-          <FaMinusCircle size={15} color="#aaa"  />
-
-        </button>
+          <button type="button" onClick={() => handleRemove()}>
+            <FaMinusCircle size={15} color="#aaa"  />
+          </button>
           
         </header>
         <p>{data.content}</p>
@@ -100,13 +96,13 @@ export default function Card({data, index, listIndex, cardId}) {
        
       </Content>
     </Container>
-    {showModal && (
+    {/* {showModal && (
       <div>
         <button type="button" onClick={() => setShowModal(false)}>
           Remover
         </button>
       </div>
-    )}
+    )} */}
     </>
   );
 }

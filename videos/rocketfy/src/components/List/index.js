@@ -9,7 +9,7 @@ import {FaPlus} from 'react-icons/fa';
 import { Container,AddCard,ListCards } from './styles';
 
 export default function List({data, index: listIndex}) {
-  const {moveEmpty} = useContext(BoardContext);
+  const {moveEmpty, create} = useContext(BoardContext);
 
   const [, dropEmpty] = useDrop({
     accept: 'CARD',
@@ -25,17 +25,19 @@ export default function List({data, index: listIndex}) {
       }
       
       moveEmpty(draggedListIndex, targetListIndex, draggedIndex, data.cards.length);
- 
     }
   });
 
+  function handleCreate() {
+    create(listIndex, {id: 6, content: "Recriando clone do Pipefy", labels: []})
+  }
 
   return (
-    <Container    done={data.done}>
+    <Container done={data.done}>
       <header>
         <h2>{data.title}</h2>
         {data.creatable && (
-          <button type="button">
+          <button type="button" onClick={handleCreate}>
             <FaPlus size={24} color="#fff" />
           </button>
         )}
