@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Platform} from 'react-native';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {MAPS_API_KEY} from 'react-native-dotenv';
@@ -6,6 +6,8 @@ import {MAPS_API_KEY} from 'react-native-dotenv';
 // import { Container } from './styles';
 
 export default function Search({onLocationSelected}) {
+  const [searchFocused, setSearchFocused] = useState(false);
+
   return (
     <GooglePlacesAutocomplete
       placeholder="Para onde"
@@ -16,9 +18,16 @@ export default function Search({onLocationSelected}) {
         language: 'pt',
       }}
       textInputProps={{
+        onFocus: () => {
+          setSearchFocused(true);
+        },
+        onBlur: () => {
+          setSearchFocused(false);
+        },
         autoCapitalize: 'none',
         autoCorrect: false,
       }}
+      listViewDisplayed={searchFocused}
       fetchDetails
       enablePoweredByContainer={false}
       styles={{

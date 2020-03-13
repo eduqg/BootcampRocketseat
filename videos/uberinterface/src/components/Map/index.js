@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import MapView from 'react-native-maps';
 import {View, Text} from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
-
+import {getPixelSize} from '../../utils';
 import Search from '../Search';
 import Directions from '../Directions';
 
@@ -11,6 +11,8 @@ import Directions from '../Directions';
 export default function Map() {
   const [region, setRegion] = useState(null);
   const [destination, setDestination] = useState(null);
+
+  const [mapRef, setMapRef] = useState(null);
 
   function handleLocationSelected(data, {geometry}) {
     const {
@@ -45,9 +47,23 @@ export default function Map() {
         style={{flex: 1}}
         region={region}
         showsUserLocation
-        loadingEnabled>
+        loadingEnabled
+        ref={ref => setMapRef(ref)}>
         {destination && (
-          <Directions origin={region} destination={destination} />
+          <Directions
+            origin={region}
+            destination={destination}
+            onReady={result => {
+              mapRef.fitToCoordinates(result.coordinates, {
+                edgePadding: {
+                  top: getPixelSize(50),
+                  bottom: getPixelSize(50),
+                  left: getPixelSize(50),
+                  right: getPixelSize(50),
+                },
+              });
+            }}
+          />
         )}
       </MapView>
       <Search onLocationSelected={handleLocationSelected} />
